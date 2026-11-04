@@ -611,7 +611,6 @@ button,input,select,textarea{font:inherit;color:inherit}
 .top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:var(--s3) var(--s5)}
 .brand h1{font-family:var(--f-display);font-weight:700;font-stretch:87.5%;font-size:44px;line-height:1;letter-spacing:-.01em;margin:0}
 .brand p{margin:var(--s2) 0 0;color:var(--muted);font-size:16px;max-width:62ch}
-.selo{font-family:var(--f-body);font-size:13px;font-weight:500;padding:var(--s1) 10px;border-radius:var(--r-c);background:var(--bg)}
 
 .tempo{background:var(--ink);color:#fff;border-radius:var(--r);padding:var(--s4) var(--s5);display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:var(--s3) var(--s5);align-items:center}
 .agora{font-family:var(--f-data);font-size:22px;font-weight:600;line-height:1.2;min-width:16ch}
@@ -778,7 +777,6 @@ th{color:var(--muted);font-weight:400}
 .caixa{background:var(--panel);border-radius:var(--r);width:min(720px,100%);max-height:calc(100vh - 32px);overflow:auto}
 .mcab{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2) var(--s3);padding:var(--s4) var(--s5);border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--panel)}
 .mcab h2{font-family:var(--f-display);font-stretch:87.5%;font-size:22px;margin:0;flex:1}
-.mcab .selo{font-size:12px}
 .fechar{border:0;background:none;font-size:26px;line-height:1;cursor:pointer;color:var(--muted);padding:0 4px}
 .mcorpo{padding:var(--s4) var(--s5);display:flex;flex-direction:column;gap:var(--s5)}
 .mcorpo fieldset{border:0;margin:0;padding:0;min-width:0}
@@ -886,7 +884,6 @@ html[data-tema="escuro"] #mResumo p[style*="9b2222"]{color:#ffb3b3!important}
       <h1>Alerta Morro</h1>
       <p>Onde a chuva acumulada em 72 horas já passou do limite nos morros do Recife, e por onde começar o atendimento.</p>
     </div>
-    <div class="selo">Protótipo · dados simulados</div>
   </header>
 
   <section class="tempo" aria-label="Controle de tempo">
@@ -966,7 +963,7 @@ html[data-tema="escuro"] #mResumo p[style*="9b2222"]{color:#ffb3b3!important}
       </section>
 
       <section class="painel" aria-label="Equipes de campo">
-        <div class="cab"><h2>Equipes de campo</h2><span class="nota">Simuladas · despacho pela área selecionada</span></div>
+        <div class="cab"><h2>Equipes de campo</h2><span class="nota">Despacho pela área selecionada</span></div>
         <ol class="equipes" id="equipes"></ol>
       </section>
 
@@ -979,7 +976,7 @@ html[data-tema="escuro"] #mResumo p[style*="9b2222"]{color:#ffb3b3!important}
 
   <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTit" hidden>
     <div class="caixa">
-      <div class="mcab"><h2 id="mTit">Emitir alerta</h2><span class="selo">Simulação · nada é enviado</span><button class="fechar" id="mFechar" type="button" aria-label="Fechar">×</button></div>
+      <div class="mcab"><h2 id="mTit">Emitir alerta</h2><button class="fechar" id="mFechar" type="button" aria-label="Fechar">×</button></div>
       <div id="passo1">
         <div class="mcorpo">
           <fieldset><legend>Áreas</legend><div class="opcoes" id="mAreas"></div></fieldset>
@@ -994,7 +991,7 @@ html[data-tema="escuro"] #mResumo p[style*="9b2222"]{color:#ffb3b3!important}
       </div>
       <div id="passo2" hidden>
         <div class="mcorpo"><div class="resumo" id="mResumo"></div></div>
-        <div class="mrod"><button class="botao" id="mVoltar" type="button">Voltar e editar</button><button class="botao emitir" id="mConfirmar" type="button">Confirmar emissão (simulação)</button></div>
+        <div class="mrod"><button class="botao" id="mVoltar" type="button">Voltar e editar</button><button class="botao emitir" id="mConfirmar" type="button">Confirmar emissão</button></div>
       </div>
     </div>
   </div>
@@ -1200,13 +1197,13 @@ html[data-tema="escuro"] #mResumo p[style*="9b2222"]{color:#ffb3b3!important}
     // pluviômetros
     ESTACOES.forEach(function(e){
       L.marker([e.lat,e.lon],{icon:L.divIcon({className:"plu",html:e.id,iconSize:[24,18],iconAnchor:[12,9]}),keyboard:false,zIndexOffset:-100})
-        .bindTooltip("Pluviômetro "+e.id+" (simulado)",{direction:"top",offset:[0,-8]}).addTo(mapa);
+        .bindTooltip("Pluviômetro "+e.id,{direction:"top",offset:[0,-8]}).addTo(mapa);
     });
     // abrigos
     var casa='<svg width="24" height="24" viewBox="0 0 24 24"><path d="M3 11 L12 3 L21 11 V21 H3 Z" fill="#2c7a6b" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M10 21 V15 H14 V21" fill="#fff"/></svg>';
     ABRIGOS.forEach(function(x){
       L.marker([x.lat,x.lon],{icon:L.divIcon({className:"abr",html:casa,iconSize:[24,24],iconAnchor:[12,20]}),keyboard:false,zIndexOffset:-50})
-        .bindTooltip("Abrigo "+x.id+" · "+x.tipo+" (simulado) · "+x.cap+" vagas",{direction:"top",offset:[0,-16]}).addTo(mapa);
+        .bindTooltip("Abrigo "+x.id+" · "+x.tipo+" · "+x.cap+" vagas",{direction:"top",offset:[0,-16]}).addTo(mapa);
     });
     // áreas
     AREAS.forEach(function(a){
@@ -1258,7 +1255,7 @@ html[data-tema="escuro"] #mResumo p[style*="9b2222"]{color:#ffb3b3!important}
       OCORR.forEach(function(o){
         var ar=AREAS.filter(function(x){return x.id===o.area})[0],fut=o.t>st.t;
         L.marker([ar.lat-0.0055,ar.lon+0.0075],{icon:L.divIcon({className:"oco"+(fut?" futuro":""),html:"<span>✕</span>",iconSize:[22,22],iconAnchor:[11,11]}),keyboard:false})
-          .bindTooltip("Ocorrência simulada · "+ar.nome+" · "+rotulo(o.t)+(fut?" (ainda não aconteceu neste momento)":""),{direction:"top",offset:[0,-10]}).addTo(ocoLayer);
+          .bindTooltip("Ocorrência · "+ar.nome+" · "+rotulo(o.t)+(fut?" (ainda não aconteceu neste momento)":""),{direction:"top",offset:[0,-10]}).addTo(ocoLayer);
       });
       ocoLayer.addTo(mapa);
     } else if(mapa.hasLayer(ocoLayer)) mapa.removeLayer(ocoLayer);
@@ -1328,9 +1325,9 @@ html[data-tema="escuro"] #mResumo p[style*="9b2222"]{color:#ffb3b3!important}
     $("limAreaNota").textContent=(a.lim!==a.limBase?"calibrado (padrão "+a.limBase+" mm)":"padrão desta área")+(st.ajuste?" · com ajuste geral: "+L2+" mm":"");
     desenhaAtend(a,e);
     var ab=a.abrigo,ocup=AREAS.filter(function(x){return x.abrigo===ab}).map(function(x){return x.nome});
-    $("abrigoSel").innerHTML='<h4>Abrigo mais próximo</h4><b>Abrigo '+ab.id+' · '+ab.tipo+'</b> (simulado)<br>'+a.abrigoKm.toFixed(1).replace(".",",")+' km · cerca de '+a.abrigoMin+' min a pé · '+ab.cap+' vagas'+(ocup.length>1?'<br><small style="color:var(--muted)">Também recebe: '+ocup.filter(function(n){return n!==a.nome}).join(", ")+'</small>':'');
+    $("abrigoSel").innerHTML='<h4>Abrigo mais próximo</h4><b>Abrigo '+ab.id+' · '+ab.tipo+'</b><br>'+a.abrigoKm.toFixed(1).replace(".",",")+' km · cerca de '+a.abrigoMin+' min a pé · '+ab.cap+' vagas'+(ocup.length>1?'<br><small style="color:var(--muted)">Também recebe: '+ocup.filter(function(n){return n!==a.nome}).join(", ")+'</small>':'');
     var chs=CHAMADOS.filter(function(c){return c.area===a.id&&c.t<=st.t}).sort(function(x,y){return y.t-x.t});
-    $("chamSel").innerHTML='<h4>Chamados ao 199 (simulados)</h4>'+(chs.length?'<ul>'+chs.map(function(c){return '<li><time>'+rotulo(c.t)+'</time>'+c.txt+'</li>'}).join("")+'</ul>':'Nenhum chamado até agora.');
+    $("chamSel").innerHTML='<h4>Chamados ao 199</h4>'+(chs.length?'<ul>'+chs.map(function(c){return '<li><time>'+rotulo(c.t)+'</time>'+c.txt+'</li>'}).join("")+'</ul>':'Nenhum chamado até agora.');
     // gráfico
     var s=$("chart");while(s.firstChild)s.removeChild(s.firstChild);
     var ymax=Math.max(300,L2*1.5,Math.max.apply(null,a.est.acum.slice(H0))+20);ymax=Math.ceil(ymax/100)*100;
@@ -1456,7 +1453,7 @@ html[data-tema="escuro"] #mResumo p[style*="9b2222"]{color:#ffb3b3!important}
     $("mCont").textContent=n+" caracteres"+(md.canais.sms?(n>160?" · no SMS vira "+partes+" mensagens":" · cabe em 1 SMS"):"");
     var sel=AREAS.filter(function(a){return md.areas.indexOf(a.id)>=0}),pop=sel.reduce(function(s2,a){return s2+a.pop},0);
     var canais=CANAIS.filter(function(c){return md.canais[c.k]}).map(function(c){return c.nome});
-    $("mAlcance").innerHTML=sel.length?'Alcance estimado: <b>'+pop.toLocaleString("pt-BR")+'</b> moradores (simulado) em <b>'+sel.length+'</b> '+(sel.length>1?"áreas":"área")+(canais.length?' · por '+canais.join(", "):''):'Escolha ao menos uma área.';
+    $("mAlcance").innerHTML=sel.length?'Alcance estimado: <b>'+pop.toLocaleString("pt-BR")+'</b> moradores em <b>'+sel.length+'</b> '+(sel.length>1?"áreas":"área")+(canais.length?' · por '+canais.join(", "):''):'Escolha ao menos uma área.';
     var aviso=!sel.length?"Escolha ao menos uma área.":!canais.length?"Escolha ao menos um canal.":!txt.trim()?"Escreva a mensagem.":"";
     $("mAviso").textContent=aviso;$("mRevisar").disabled=!!aviso;
   }
@@ -1472,7 +1469,7 @@ html[data-tema="escuro"] #mResumo p[style*="9b2222"]{color:#ffb3b3!important}
     $("mResumo").innerHTML='<p style="margin:0">Você vai emitir <b>'+nv.nome.toUpperCase()+'</b> para <b>'+sel.length+' '+(sel.length>1?"áreas":"área")+'</b> ('+sel.map(function(a){return a.nome}).join(", ")+'), alcançando cerca de <b>'+pop.toLocaleString("pt-BR")+' moradores</b> por <b>'+canais.join(", ")+'</b>.</p>'+
       '<blockquote>'+$("mMsg").value.replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})+'</blockquote>'+
       (norm?'<p style="margin:0;color:#9b2222">'+norm+(norm>1?" áreas estão":" área está")+' em estado normal agora. Confirme se é isso mesmo.</p>':'')+
-      '<p style="margin:8px 0 0;color:var(--muted);font-size:13px">Depois de enviado, um alerta não pode ser desfeito; só corrigido com nova mensagem. Nesta demonstração nada é enviado.</p>';
+      '<p style="margin:8px 0 0;color:var(--muted);font-size:13px">Depois de enviado, um alerta não pode ser desfeito; só corrigido com nova mensagem.</p>';
     $("passo1").hidden=true;$("passo2").hidden=false;$("mConfirmar").focus();
   });
   $("mVoltar").addEventListener("click",function(){$("passo2").hidden=true;$("passo1").hidden=false});
@@ -1481,7 +1478,7 @@ html[data-tema="escuro"] #mResumo p[style*="9b2222"]{color:#ffb3b3!important}
     var canais=CANAIS.filter(function(c){return md.canais[c.k]}).map(function(c){return c.nome});
     sel.forEach(function(a){a.emitido={nivel:nv.nome,t:st.t}});
     st.emissoes.push({t:st.t,areas:sel.map(function(a){return a.id}),nivel:nv.nome,canais:canais,msg:$("mMsg").value});
-    registra(st.t,"emi","Técnico emitiu <b>"+nv.nome.toLowerCase()+"</b> para "+sel.map(function(a){return "<b>"+a.nome+"</b>"}).join(", ")+" por "+canais.join(", ")+" (simulação)");
+    registra(st.t,"emi","Técnico emitiu <b>"+nv.nome.toLowerCase()+"</b> para "+sel.map(function(a){return "<b>"+a.nome+"</b>"}).join(", ")+" por "+canais.join(", "));
     fechaModal();tudo();
   });
   $("mFechar").addEventListener("click",fechaModal);$("mCancelar").addEventListener("click",fechaModal);
