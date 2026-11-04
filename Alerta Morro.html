@@ -1,0 +1,1575 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Alerta Morro</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@87.5,600;87.5,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>/* Leaflet 1.9.4 */
+
+.leaflet-pane,
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow,
+.leaflet-tile-container,
+.leaflet-pane > svg,
+.leaflet-pane > canvas,
+.leaflet-zoom-box,
+.leaflet-image-layer,
+.leaflet-layer {
+	position: absolute;
+	left: 0;
+	top: 0;
+	}
+.leaflet-container {
+	overflow: hidden;
+	}
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	        user-select: none;
+	  -webkit-user-drag: none;
+	}
+.leaflet-tile::selection {
+	background: transparent;
+}
+.leaflet-safari .leaflet-tile {
+	image-rendering: -webkit-optimize-contrast;
+	}
+.leaflet-safari .leaflet-tile-container {
+	width: 1600px;
+	height: 1600px;
+	-webkit-transform-origin: 0 0;
+	}
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+	display: block;
+	}
+.leaflet-container .leaflet-overlay-pane svg {
+	max-width: none !important;
+	max-height: none !important;
+	}
+.leaflet-container .leaflet-marker-pane img,
+.leaflet-container .leaflet-shadow-pane img,
+.leaflet-container .leaflet-tile-pane img,
+.leaflet-container img.leaflet-image-layer,
+.leaflet-container .leaflet-tile {
+	max-width: none !important;
+	max-height: none !important;
+	width: auto;
+	padding: 0;
+	}
+.leaflet-container img.leaflet-tile {
+	mix-blend-mode: plus-lighter;
+}
+.leaflet-container.leaflet-touch-zoom {
+	-ms-touch-action: pan-x pan-y;
+	touch-action: pan-x pan-y;
+	}
+.leaflet-container.leaflet-touch-drag {
+	-ms-touch-action: pinch-zoom;
+	touch-action: none;
+	touch-action: pinch-zoom;
+}
+.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom {
+	-ms-touch-action: none;
+	touch-action: none;
+}
+.leaflet-container {
+	-webkit-tap-highlight-color: transparent;
+}
+.leaflet-container a {
+	-webkit-tap-highlight-color: rgba(51, 181, 229, 0.4);
+}
+.leaflet-tile {
+	filter: inherit;
+	visibility: hidden;
+	}
+.leaflet-tile-loaded {
+	visibility: inherit;
+	}
+.leaflet-zoom-box {
+	width: 0;
+	height: 0;
+	-moz-box-sizing: border-box;
+	     box-sizing: border-box;
+	z-index: 800;
+	}
+.leaflet-overlay-pane svg {
+	-moz-user-select: none;
+	}
+.leaflet-pane         { z-index: 400; }
+.leaflet-tile-pane    { z-index: 200; }
+.leaflet-overlay-pane { z-index: 400; }
+.leaflet-shadow-pane  { z-index: 500; }
+.leaflet-marker-pane  { z-index: 600; }
+.leaflet-tooltip-pane   { z-index: 650; }
+.leaflet-popup-pane   { z-index: 700; }
+.leaflet-map-pane canvas { z-index: 100; }
+.leaflet-map-pane svg    { z-index: 200; }
+.leaflet-vml-shape {
+	width: 1px;
+	height: 1px;
+	}
+.lvml {
+	behavior: url(#default#VML);
+	display: inline-block;
+	position: absolute;
+	}
+.leaflet-control {
+	position: relative;
+	z-index: 800;
+	pointer-events: visiblePainted; 
+	pointer-events: auto;
+	}
+.leaflet-top,
+.leaflet-bottom {
+	position: absolute;
+	z-index: 1000;
+	pointer-events: none;
+	}
+.leaflet-top {
+	top: 0;
+	}
+.leaflet-right {
+	right: 0;
+	}
+.leaflet-bottom {
+	bottom: 0;
+	}
+.leaflet-left {
+	left: 0;
+	}
+.leaflet-control {
+	float: left;
+	clear: both;
+	}
+.leaflet-right .leaflet-control {
+	float: right;
+	}
+.leaflet-top .leaflet-control {
+	margin-top: 10px;
+	}
+.leaflet-bottom .leaflet-control {
+	margin-bottom: 10px;
+	}
+.leaflet-left .leaflet-control {
+	margin-left: 10px;
+	}
+.leaflet-right .leaflet-control {
+	margin-right: 10px;
+	}
+.leaflet-fade-anim .leaflet-popup {
+	opacity: 0;
+	-webkit-transition: opacity 0.2s linear;
+	   -moz-transition: opacity 0.2s linear;
+	        transition: opacity 0.2s linear;
+	}
+.leaflet-fade-anim .leaflet-map-pane .leaflet-popup {
+	opacity: 1;
+	}
+.leaflet-zoom-animated {
+	-webkit-transform-origin: 0 0;
+	    -ms-transform-origin: 0 0;
+	        transform-origin: 0 0;
+	}
+svg.leaflet-zoom-animated {
+	will-change: transform;
+}
+.leaflet-zoom-anim .leaflet-zoom-animated {
+	-webkit-transition: -webkit-transform 0.25s cubic-bezier(0,0,0.25,1);
+	   -moz-transition:    -moz-transform 0.25s cubic-bezier(0,0,0.25,1);
+	        transition:         transform 0.25s cubic-bezier(0,0,0.25,1);
+	}
+.leaflet-zoom-anim .leaflet-tile,
+.leaflet-pan-anim .leaflet-tile {
+	-webkit-transition: none;
+	   -moz-transition: none;
+	        transition: none;
+	}
+.leaflet-zoom-anim .leaflet-zoom-hide {
+	visibility: hidden;
+	}
+.leaflet-interactive {
+	cursor: pointer;
+	}
+.leaflet-grab {
+	cursor: -webkit-grab;
+	cursor:    -moz-grab;
+	cursor:         grab;
+	}
+.leaflet-crosshair,
+.leaflet-crosshair .leaflet-interactive {
+	cursor: crosshair;
+	}
+.leaflet-popup-pane,
+.leaflet-control {
+	cursor: auto;
+	}
+.leaflet-dragging .leaflet-grab,
+.leaflet-dragging .leaflet-grab .leaflet-interactive,
+.leaflet-dragging .leaflet-marker-draggable {
+	cursor: move;
+	cursor: -webkit-grabbing;
+	cursor:    -moz-grabbing;
+	cursor:         grabbing;
+	}
+.leaflet-marker-icon,
+.leaflet-marker-shadow,
+.leaflet-image-layer,
+.leaflet-pane > svg path,
+.leaflet-tile-container {
+	pointer-events: none;
+	}
+.leaflet-marker-icon.leaflet-interactive,
+.leaflet-image-layer.leaflet-interactive,
+.leaflet-pane > svg path.leaflet-interactive,
+svg.leaflet-image-layer.leaflet-interactive path {
+	pointer-events: visiblePainted; 
+	pointer-events: auto;
+	}
+.leaflet-container {
+	background: #ddd;
+	outline-offset: 1px;
+	}
+.leaflet-container a {
+	color: #0078A8;
+	}
+.leaflet-zoom-box {
+	border: 2px dotted #38f;
+	background: rgba(255,255,255,0.5);
+	}
+.leaflet-container {
+	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-size: 0.75rem;
+	line-height: 1.5;
+	}
+.leaflet-bar {
+	box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+	border-radius: 4px;
+	}
+.leaflet-bar a {
+	background-color: #fff;
+	border-bottom: 1px solid #ccc;
+	width: 26px;
+	height: 26px;
+	line-height: 26px;
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	color: black;
+	}
+.leaflet-bar a,
+.leaflet-control-layers-toggle {
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	display: block;
+	}
+.leaflet-bar a:hover,
+.leaflet-bar a:focus {
+	background-color: #f4f4f4;
+	}
+.leaflet-bar a:first-child {
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	}
+.leaflet-bar a:last-child {
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+	border-bottom: none;
+	}
+.leaflet-bar a.leaflet-disabled {
+	cursor: default;
+	background-color: #f4f4f4;
+	color: #bbb;
+	}
+.leaflet-touch .leaflet-bar a {
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	}
+.leaflet-touch .leaflet-bar a:first-child {
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	}
+.leaflet-touch .leaflet-bar a:last-child {
+	border-bottom-left-radius: 2px;
+	border-bottom-right-radius: 2px;
+	}
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+	font: bold 18px 'Lucida Console', Monaco, monospace;
+	text-indent: 1px;
+	}
+.leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out  {
+	font-size: 22px;
+	}
+.leaflet-control-layers {
+	box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+	background: #fff;
+	border-radius: 5px;
+	}
+.leaflet-control-layers-toggle {
+	background-image: url(images/layers.png);
+	width: 36px;
+	height: 36px;
+	}
+.leaflet-retina .leaflet-control-layers-toggle {
+	background-image: url(images/layers-2x.png);
+	background-size: 26px 26px;
+	}
+.leaflet-touch .leaflet-control-layers-toggle {
+	width: 44px;
+	height: 44px;
+	}
+.leaflet-control-layers .leaflet-control-layers-list,
+.leaflet-control-layers-expanded .leaflet-control-layers-toggle {
+	display: none;
+	}
+.leaflet-control-layers-expanded .leaflet-control-layers-list {
+	display: block;
+	position: relative;
+	}
+.leaflet-control-layers-expanded {
+	padding: 6px 10px 6px 6px;
+	color: #333;
+	background: #fff;
+	}
+.leaflet-control-layers-scrollbar {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	padding-right: 5px;
+	}
+.leaflet-control-layers-selector {
+	margin-top: 2px;
+	position: relative;
+	top: 1px;
+	}
+.leaflet-control-layers label {
+	display: block;
+	font-size: 13px;
+	font-size: 1.08333em;
+	}
+.leaflet-control-layers-separator {
+	height: 0;
+	border-top: 1px solid #ddd;
+	margin: 5px -10px 5px -6px;
+	}
+.leaflet-default-icon-path { 
+	background-image: url(images/marker-icon.png);
+	}
+.leaflet-container .leaflet-control-attribution {
+	background: #fff;
+	background: rgba(255, 255, 255, 0.8);
+	margin: 0;
+	}
+.leaflet-control-attribution,
+.leaflet-control-scale-line {
+	padding: 0 5px;
+	color: #333;
+	line-height: 1.4;
+	}
+.leaflet-control-attribution a {
+	text-decoration: none;
+	}
+.leaflet-control-attribution a:hover,
+.leaflet-control-attribution a:focus {
+	text-decoration: underline;
+	}
+.leaflet-attribution-flag {
+	display: inline !important;
+	vertical-align: baseline !important;
+	width: 1em;
+	height: 0.6669em;
+	}
+.leaflet-left .leaflet-control-scale {
+	margin-left: 5px;
+	}
+.leaflet-bottom .leaflet-control-scale {
+	margin-bottom: 5px;
+	}
+.leaflet-control-scale-line {
+	border: 2px solid #777;
+	border-top: none;
+	line-height: 1.1;
+	padding: 2px 5px 1px;
+	white-space: nowrap;
+	-moz-box-sizing: border-box;
+	     box-sizing: border-box;
+	background: rgba(255, 255, 255, 0.8);
+	text-shadow: 1px 1px #fff;
+	}
+.leaflet-control-scale-line:not(:first-child) {
+	border-top: 2px solid #777;
+	border-bottom: none;
+	margin-top: -2px;
+	}
+.leaflet-control-scale-line:not(:first-child):not(:last-child) {
+	border-bottom: 2px solid #777;
+	}
+.leaflet-touch .leaflet-control-attribution,
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+	box-shadow: none;
+	}
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+	border: 2px solid rgba(0,0,0,0.2);
+	background-clip: padding-box;
+	}
+.leaflet-popup {
+	position: absolute;
+	text-align: center;
+	margin-bottom: 20px;
+	}
+.leaflet-popup-content-wrapper {
+	padding: 1px;
+	text-align: left;
+	border-radius: 12px;
+	}
+.leaflet-popup-content {
+	margin: 13px 24px 13px 20px;
+	line-height: 1.3;
+	font-size: 13px;
+	font-size: 1.08333em;
+	min-height: 1px;
+	}
+.leaflet-popup-content p {
+	margin: 17px 0;
+	margin: 1.3em 0;
+	}
+.leaflet-popup-tip-container {
+	width: 40px;
+	height: 20px;
+	position: absolute;
+	left: 50%;
+	margin-top: -1px;
+	margin-left: -20px;
+	overflow: hidden;
+	pointer-events: none;
+	}
+.leaflet-popup-tip {
+	width: 17px;
+	height: 17px;
+	padding: 1px;
+	margin: -10px auto 0;
+	pointer-events: auto;
+	-webkit-transform: rotate(45deg);
+	   -moz-transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	        transform: rotate(45deg);
+	}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+	background: white;
+	color: #333;
+	box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+	}
+.leaflet-container a.leaflet-popup-close-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	border: none;
+	text-align: center;
+	width: 24px;
+	height: 24px;
+	font: 16px/24px Tahoma, Verdana, sans-serif;
+	color: #757575;
+	text-decoration: none;
+	background: transparent;
+	}
+.leaflet-container a.leaflet-popup-close-button:hover,
+.leaflet-container a.leaflet-popup-close-button:focus {
+	color: #585858;
+	}
+.leaflet-popup-scrolled {
+	overflow: auto;
+	}
+.leaflet-oldie .leaflet-popup-content-wrapper {
+	-ms-zoom: 1;
+	}
+.leaflet-oldie .leaflet-popup-tip {
+	width: 24px;
+	margin: 0 auto;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)";
+	filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678);
+	}
+.leaflet-oldie .leaflet-control-zoom,
+.leaflet-oldie .leaflet-control-layers,
+.leaflet-oldie .leaflet-popup-content-wrapper,
+.leaflet-oldie .leaflet-popup-tip {
+	border: 1px solid #999;
+	}
+.leaflet-div-icon {
+	background: #fff;
+	border: 1px solid #666;
+	}
+.leaflet-tooltip {
+	position: absolute;
+	padding: 6px;
+	background-color: #fff;
+	border: 1px solid #fff;
+	border-radius: 3px;
+	color: #222;
+	white-space: nowrap;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	pointer-events: none;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+	}
+.leaflet-tooltip.leaflet-interactive {
+	cursor: pointer;
+	pointer-events: auto;
+	}
+.leaflet-tooltip-top:before,
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+	position: absolute;
+	pointer-events: none;
+	border: 6px solid transparent;
+	background: transparent;
+	content: "";
+	}
+.leaflet-tooltip-bottom {
+	margin-top: 6px;
+}
+.leaflet-tooltip-top {
+	margin-top: -6px;
+}
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-top:before {
+	left: 50%;
+	margin-left: -6px;
+	}
+.leaflet-tooltip-top:before {
+	bottom: 0;
+	margin-bottom: -12px;
+	border-top-color: #fff;
+	}
+.leaflet-tooltip-bottom:before {
+	top: 0;
+	margin-top: -12px;
+	margin-left: -6px;
+	border-bottom-color: #fff;
+	}
+.leaflet-tooltip-left {
+	margin-left: -6px;
+}
+.leaflet-tooltip-right {
+	margin-left: 6px;
+}
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+	top: 50%;
+	margin-top: -6px;
+	}
+.leaflet-tooltip-left:before {
+	right: 0;
+	margin-right: -12px;
+	border-left-color: #fff;
+	}
+.leaflet-tooltip-right:before {
+	left: 0;
+	margin-left: -12px;
+	border-right-color: #fff;
+	}
+@media print {
+	.leaflet-control {
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+		}
+	}
+</style>
+<style>
+/* Painel de plantão: tempo no topo; mapa e validação à esquerda; fila, detalhe e registro à direita. */
+:root{
+  color-scheme:light;
+  --bg:#eef1f4; --panel:#ffffff; --ink:#16212b; --muted:#566473; --line:#e6e9ed; --line-strong:#7f8b97; --on-ink-muted:#b7c3ce;
+  --accent:#0b5c8a; --accent-soft:#dcebf4;
+  --water:#cddfea; --land:#eef0ec; --hill:#dfe4d8; --river:#a9c6d8;
+  --good:#2e9e4a; --warn:#f0a91c; --crit:#d03b3b; --on-crit:#ffffff; --on-status:#10161c;
+  --f-display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --f-body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  --f-data:var(--f-body);
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:48px;
+  --r:8px; --r-c:6px;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--panel);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;font-variant-numeric:tabular-nums}
+.wrap{max-width:1280px;margin:0 auto;padding:40px var(--s5) var(--s6);display:flex;flex-direction:column;gap:var(--s5)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:var(--s3) var(--s5)}
+.brand h1{font-family:var(--f-display);font-weight:700;font-stretch:87.5%;font-size:44px;line-height:1;letter-spacing:-.01em;margin:0}
+.brand p{margin:var(--s2) 0 0;color:var(--muted);font-size:16px;max-width:62ch}
+.selo{font-family:var(--f-body);font-size:13px;font-weight:500;padding:var(--s1) 10px;border-radius:var(--r-c);background:var(--bg)}
+
+.tempo{background:var(--ink);color:#fff;border-radius:var(--r);padding:var(--s4) var(--s5);display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:var(--s3) var(--s5);align-items:center}
+.agora{font-family:var(--f-data);font-size:22px;font-weight:600;line-height:1.2;min-width:16ch}
+.agora small{display:block;margin-top:2px;font-family:var(--f-body);font-size:13px;line-height:1.4;color:var(--on-ink-muted);font-weight:400}
+.play{background:#fff;color:var(--ink);border:0;border-radius:var(--r-c);padding:10px var(--s4);font-weight:600;cursor:pointer;min-width:124px}
+.trilho{display:flex;flex-direction:column;gap:2px;min-width:0}
+.trilho input{width:100%;accent-color:#8cc8ec;color-scheme:dark;margin:0}
+.dias{display:grid;grid-template-columns:repeat(4,1fr);font-family:var(--f-data);font-size:12px;color:var(--on-ink-muted)}
+.ajuste{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2) var(--s3);font-size:13px;color:var(--on-ink-muted)}
+.ajuste input{accent-color:#8cc8ec;color-scheme:dark;width:170px;max-width:100%}
+.ajuste output{font-family:var(--f-data);color:#fff;font-weight:600;min-width:5ch}
+.atalhos{margin-left:auto;font-size:12px}
+kbd{font-family:var(--f-data);font-size:12px;color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:3px;padding:0 5px}
+.tempo :focus-visible{outline-color:#fff}
+
+.barra{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2) var(--s3)}
+.chips{display:flex;flex-wrap:wrap;gap:var(--s2)}
+.chip{border:1px solid transparent;background:var(--bg);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:500;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.barra .sep{flex:1}
+.botao{border:1px solid transparent;background:var(--bg);border-radius:var(--r-c);padding:6px 14px;font-size:14px;cursor:pointer;font-weight:500}
+.botao[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+
+.grade{display:grid;grid-template-columns:minmax(0,11fr) minmax(0,10fr);gap:var(--s6);align-items:start}
+.col{display:flex;flex-direction:column;gap:var(--s6);min-width:0}
+.painel{min-width:0}
+.painel h2{font-family:var(--f-display);font-stretch:87.5%;font-weight:700;font-size:20px;line-height:1.2;margin:0}
+.cab{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:var(--s1) var(--s4);padding:0 0 var(--s3)}
+.cab .nota{font-size:13px;color:var(--muted)}
+
+#mapa{height:600px;background:var(--land);border-radius:var(--r)}
+.leaflet-container{font-family:var(--f-body)}
+.esq-rot{font-size:11px;color:var(--muted);white-space:nowrap;text-transform:uppercase;letter-spacing:.08em;pointer-events:none}
+.esq-rot.agua{font-style:italic;text-transform:none;letter-spacing:0}
+.area-ic{display:grid;place-items:center}
+.area-ic svg{display:block;overflow:visible}
+.area-ic.sel svg{filter:drop-shadow(0 0 0 #000) drop-shadow(0 0 2px rgba(0,0,0,.6))}
+.area-ic.apagada{opacity:.25}
+.plu{background:#fff;border:1.5px solid var(--accent);color:var(--accent);border-radius:3px;font-family:var(--f-data);font-size:10.5px;font-weight:500;display:grid;place-items:center;line-height:1}
+.oco{display:grid;place-items:center}
+.oco span{width:18px;height:18px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700;line-height:1;border:2px solid #fff}
+.oco.futuro span{background:#fff;color:var(--ink);border-color:var(--ink)}
+.legenda{display:flex;flex-wrap:wrap;gap:var(--s1) var(--s4);padding:var(--s3) 0 0;font-size:13px;align-items:center}
+.legenda span{display:inline-flex;align-items:center;gap:6px}
+.regra{padding:var(--s3) 0 0;font-size:13px;color:var(--muted)}
+.regra b{color:var(--ink);font-weight:600}
+.pq{width:14px;height:14px;border:1.5px solid var(--accent);border-radius:2px;background:#fff;display:inline-block}
+
+svg.gl{width:14px;height:14px;flex:none;display:inline-block}
+.conta{font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:var(--s1) var(--s4)}
+.conta span{display:inline-flex;align-items:center;gap:6px}
+.conta b{font-family:var(--f-data);font-size:20px;line-height:1;color:var(--ink);font-weight:600}
+
+.valid{display:flex;flex-direction:column;gap:var(--s4)}
+.metr{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s4)}
+.metr b{display:block;font-family:var(--f-data);font-size:32px;font-weight:600;line-height:1.1}
+.metr small{font-size:12px;color:var(--muted)}
+.valid p{margin:0;font-size:13px;color:var(--muted)}
+.ocolista{list-style:none;margin:0;padding:0;font-size:13px}
+.ocolista li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--s2);padding:6px 0;border-top:1px solid var(--line)}
+.ocolista .res{font-family:var(--f-data);font-size:12px}
+
+.fila{list-style:none;margin:0 calc(var(--s2) * -1);padding:0;max-height:430px;overflow:auto}
+.fila li+li{border-top:1px solid var(--line)}
+.linha{width:100%;background:none;border:0;text-align:left;cursor:pointer;display:grid;grid-template-columns:22px 34px minmax(0,1fr) minmax(70px,110px) 84px;gap:var(--s3);align-items:center;padding:var(--s3) var(--s2)}
+.linha:hover{background:var(--accent-soft)}
+.linha[aria-pressed="true"]{background:var(--accent-soft);box-shadow:inset 3px 0 0 var(--accent)}
+.linha:focus-visible{outline-offset:-2px}
+.linha.feito{opacity:.55}
+.pos{font-family:var(--f-data);font-size:12px;color:var(--muted);text-align:right}
+.linha .id{font-family:var(--f-data);font-size:12px;color:var(--muted);display:flex;align-items:center;gap:4px}
+.linha .nome{min-width:0}
+.linha .nome strong{font-weight:600;display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;overflow-wrap:anywhere}
+.linha .nome small{color:var(--muted);font-size:12px;display:block}
+.status{font-size:12px;font-weight:500;border-radius:999px;padding:1px var(--s2);background:var(--bg);color:var(--muted);white-space:nowrap}
+.status.enviada{background:#fff1d6;color:#7a4d00}
+.status.vistoriada{background:#dff1e3;color:#1d5e2d}
+.linha .mm{font-family:var(--f-data);font-size:15px;font-weight:600;text-align:right;white-space:nowrap}
+.tend{display:inline-block;width:1.1em;text-align:center}
+.medidor{position:relative;height:6px;background:var(--line);border-radius:3px}
+.medidor i{position:absolute;left:0;top:0;bottom:0;background:var(--muted);border-radius:3px}
+.medidor u{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
+.vazio{padding:var(--s3) var(--s2);color:var(--muted);font-size:13px}
+
+.detalhe{display:flex;flex-direction:column;gap:var(--s4)}
+.detalhe h3{font-family:var(--f-display);font-stretch:87.5%;font-weight:700;font-size:30px;margin:0;line-height:1.1}
+.motivo{margin:0;font-size:15px}
+.motivo b{font-weight:600}
+.fatos{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:var(--s3) var(--s5);font-size:13px;color:var(--muted);margin:0}
+.fatos div{display:flex;flex-direction:column}
+.fatos dt{margin:0}
+.fatos dd{margin:0;color:var(--ink);font-family:var(--f-data);font-size:15px;font-weight:500}
+.prev{background:var(--accent-soft);border-radius:var(--r-c);padding:var(--s3) var(--s4);font-size:14px}
+.prev small{display:block;color:var(--muted);font-size:12px}
+.lim-area{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:13px;color:var(--muted)}
+.lim-area input{accent-color:var(--accent);width:150px}
+.lim-area output{font-family:var(--f-data);color:var(--ink)}
+.atend{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;color:var(--muted)}
+.atend button{border:1px solid transparent;background:var(--bg);border-radius:var(--r-c);padding:6px var(--s3);cursor:pointer;font-size:13px}
+.atend button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.graf{position:relative}
+.graf svg{display:block;width:100%;height:auto}
+.graf text{font-family:var(--f-data);font-size:10.5px;fill:var(--muted)}
+.dica{position:absolute;pointer-events:none;background:var(--ink);color:#fff;font-family:var(--f-data);font-size:12px;padding:4px 7px;border-radius:3px;white-space:nowrap;transform:translate(-50%,-130%)}
+.legg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--muted)}
+.legg span{display:inline-flex;align-items:center;gap:5px}
+.legg i{display:inline-block;width:16px;height:0;border-top:2px solid var(--accent)}
+.legg i.tr{border-top-style:dashed}
+.legg i.lm{border-top:1.5px dashed var(--ink)}
+.legg i.bar{height:9px;width:9px;border:0;background:#9fb6c6}
+details{font-size:13px}
+summary{cursor:pointer;color:var(--accent);font-weight:500}
+.tab{overflow-x:auto;margin-top:6px;max-height:220px}
+table{border-collapse:collapse;font-family:var(--f-data);font-size:12px;font-variant-numeric:tabular-nums}
+th,td{padding:var(--s1) var(--s3) var(--s1) 0;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--muted);font-weight:400}
+
+.registro{list-style:none;margin:0;padding:0;max-height:220px;overflow:auto;font-size:13px}
+.registro li{display:grid;grid-template-columns:96px minmax(0,1fr);gap:var(--s3);padding:var(--s2) 0;border-bottom:1px solid var(--line);align-items:start}
+.registro li:last-child{border-bottom:0}
+.registro time{font-family:var(--f-data);font-size:12px;color:var(--muted)}
+.registro .acao{color:var(--accent)}
+.registro span{display:inline-flex;align-items:center;gap:6px}
+
+.export{padding:var(--s4) 0 0;display:flex;flex-direction:column;gap:var(--s2)}
+.export textarea{width:100%;height:130px;font-family:var(--f-data);font-size:12px;border:1px solid var(--line-strong);border-radius:var(--r-c);padding:var(--s2);resize:vertical}
+.export div{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--muted)}
+
+.botao.emitir{background:#d03b3b;border-color:#d03b3b;color:#fff;font-weight:600}
+.botao.emitir:disabled{background:var(--bg);border-color:transparent;color:var(--muted);cursor:not-allowed}
+.status.emitido{background:#fbe3e3;color:#9b2222}
+.atend{flex-direction:column;align-items:stretch!important}
+.atend .lin{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.atend .st{color:var(--ink);font-weight:500}
+.atend button.prim{background:var(--ink);color:#fff;border-color:var(--ink)}
+.atend button.alerta{background:#d03b3b;color:#fff;border-color:#d03b3b;font-weight:600}
+.atend button:disabled{opacity:.45;cursor:not-allowed}
+.atend button.alerta:disabled{opacity:1;background:var(--bg);border-color:transparent;color:var(--muted)}
+.caixas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--s4) var(--s5)}
+.caixinha{font-size:13px}
+.caixinha h4{margin:0 0 var(--s1);font-size:14px;font-weight:600}
+.caixinha ul{margin:0;padding:0;list-style:none}
+.caixinha li{padding:2px 0}
+.caixinha time{font-family:var(--f-data);font-size:12px;color:var(--muted);margin-right:6px}
+.equipes{list-style:none;margin:0;padding:0}
+.equipes li{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:var(--s3);align-items:center;padding:var(--s3) 0;border-top:1px solid var(--line);font-size:13px}
+.equipes li:first-child{border-top:0}
+.equipes .tag{font-family:var(--f-data);font-size:12px;font-weight:600;background:var(--bg);border-radius:var(--r-c);text-align:center;padding:3px 0}
+.equipes small{display:block;color:var(--muted)}
+.equipes .livre{color:#1d5e2d;font-weight:500}
+.equipes .ocup{color:#7a4d00;font-weight:500}
+.abr{display:grid;place-items:center}
+.abr svg{display:block}
+.eqp{background:var(--ink);color:#fff;border:2px solid #fff;border-radius:4px;font-family:var(--f-data);font-size:10.5px;font-weight:600;display:grid;place-items:center;line-height:1}
+.cham{background:#6b4fa0;color:#fff;border:2px solid #fff;border-radius:999px;font-family:var(--f-data);font-size:10px;font-weight:600;display:grid;place-items:center;line-height:1}
+.lg-abr,.lg-eqp,.lg-cham{display:inline-grid;place-items:center;font-family:var(--f-data);font-size:9px;font-weight:600;color:#fff;line-height:1}
+.lg-eqp{width:18px;height:14px;background:var(--ink);border-radius:3px}
+.lg-cham{width:22px;height:14px;background:#6b4fa0;border-radius:999px}
+.registro .cham-t{color:#6b4fa0}
+.registro .acao,.registro .cham-t,.registro .emi-t{display:block}
+.registro .emi-t{color:#9b2222}
+.modal{position:fixed;inset:0;background:rgba(16,22,28,.6);display:grid;place-items:center;padding:var(--s4);z-index:2000}
+.caixa{background:var(--panel);border-radius:var(--r);width:min(720px,100%);max-height:calc(100vh - 32px);overflow:auto}
+.mcab{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2) var(--s3);padding:var(--s4) var(--s5);border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--panel)}
+.mcab h2{font-family:var(--f-display);font-stretch:87.5%;font-size:22px;margin:0;flex:1}
+.mcab .selo{font-size:12px}
+.fechar{border:0;background:none;font-size:26px;line-height:1;cursor:pointer;color:var(--muted);padding:0 4px}
+.mcorpo{padding:var(--s4) var(--s5);display:flex;flex-direction:column;gap:var(--s5)}
+.mcorpo fieldset{border:0;margin:0;padding:0;min-width:0}
+.mcorpo legend{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;padding:0 0 var(--s1)}
+.opcoes{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:4px 14px;font-size:14px}
+.opcoes label{display:flex;align-items:flex-start;gap:8px;padding:3px 0;cursor:pointer}
+.opcoes input{margin-top:4px;accent-color:#d03b3b}
+.opcoes small{display:block;color:var(--muted);font-size:12px}
+.mcorpo textarea{width:100%;min-height:110px;border:1px solid var(--line-strong);border-radius:var(--r-c);padding:var(--s2);font-size:14px;resize:vertical}
+.contador{font-size:12px;color:var(--muted);margin-top:4px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.alcance{background:#fbe3e3;border-radius:var(--r-c);padding:var(--s3) var(--s4);font-size:14px}
+.alcance b{font-family:var(--f-data)}
+.mrod{display:flex;flex-wrap:wrap;gap:var(--s2);justify-content:flex-end;align-items:center;padding:var(--s3) var(--s5);border-top:1px solid var(--line);position:sticky;bottom:0;background:var(--panel)}
+.mrod .aviso{flex:1;font-size:13px;color:#9b2222;min-width:180px}
+.resumo{font-size:15px;line-height:1.5}
+.resumo blockquote{margin:8px 0;padding:10px 12px;border-left:3px solid #d03b3b;background:var(--bg);font-size:14px}
+.rodape{margin-top:var(--s5);font-size:13px;color:var(--muted);display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--s2) var(--s5)}
+.rodape p{margin:0}
+.rodape b{color:var(--ink);font-weight:600}
+
+@media (max-width:900px){
+  :root{--s6:32px}
+  .wrap{padding:var(--s5) var(--s4) var(--s6)}
+  .brand h1{font-size:34px}
+  .tempo{padding:var(--s4)}
+  .grade{grid-template-columns:minmax(0,1fr)}
+  #mapa{height:440px}
+  .tempo{grid-template-columns:minmax(0,1fr) auto}
+  .trilho{grid-column:1/-1;order:3}
+  .ajuste{order:4}
+  .atalhos{display:none}
+  .metr{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .linha{grid-template-columns:22px 34px minmax(0,1fr) 84px}
+  .linha .medidor{grid-column:3/-1;grid-row:2}
+}
+
+/* Botao discreto de tema: quase apagado ate receber hover ou foco. */
+.tema{position:absolute;top:var(--s2);right:var(--s2);width:32px;height:32px;display:grid;place-items:center;padding:0;border:0;border-radius:50%;background:none;color:var(--muted);opacity:.4;cursor:pointer}
+.tema:hover,.tema:focus-visible{opacity:1;background:var(--bg)}
+.tema svg{width:16px;height:16px;display:block}
+
+/* Tema escuro. Cores fixas de status e do mapa vivem no JS; aqui so ajustamos o que esta em volta. */
+html[data-tema="escuro"]{
+  color-scheme:dark;
+  --bg:#222e39; --panel:#121a21; --ink:#e8edf1; --muted:#a6b3bf; --line:#2c3844; --line-strong:#74828f;
+  --accent:#6db8e6; --accent-soft:#1c3a4f; --land:#272d29;
+}
+html[data-tema="escuro"] .tempo{background:#1c2630}
+html[data-tema="escuro"] .play{color:#16212b}
+html[data-tema="escuro"] .chip[aria-pressed="true"],
+html[data-tema="escuro"] .atend button[aria-pressed="true"],
+html[data-tema="escuro"] .atend button.prim,
+html[data-tema="escuro"] .botao[aria-pressed="true"],
+html[data-tema="escuro"] .dica{color:#10161c}
+html[data-tema="escuro"] .leaflet-esquema-pane{filter:invert(.9) hue-rotate(180deg)}
+/* Os rotulos do mapa passam pelo filtro acima: a cor escura aqui vira clara na tela. */
+html[data-tema="escuro"] .esq-rot{color:#3f4b57}
+html[data-tema="escuro"] textarea{background:var(--bg)}
+html[data-tema="escuro"] .lg-eqp{box-shadow:0 0 0 1px #fff}
+html[data-tema="escuro"] .leaflet-bar a,
+html[data-tema="escuro"] .leaflet-bar a:hover{background:#1c2630;color:var(--ink);border-bottom-color:var(--line)}
+html[data-tema="escuro"] .plu,
+html[data-tema="escuro"] .pq{border-color:#0b5c8a;color:#0b5c8a}
+html[data-tema="escuro"] .eqp,
+html[data-tema="escuro"] .lg-eqp,
+html[data-tema="escuro"] .oco span{background:#16212b}
+html[data-tema="escuro"] .oco.futuro span{background:#fff;color:#16212b;border-color:#16212b}
+html[data-tema="escuro"] .area-ic.sel svg{filter:drop-shadow(0 0 3px #fff)}
+html[data-tema="escuro"] .status.enviada{background:#4a3710;color:#ffd98a}
+html[data-tema="escuro"] .status.vistoriada{background:#1c4228;color:#a6e3b5}
+html[data-tema="escuro"] .status.emitido{background:#4f2224;color:#ffc2c2}
+html[data-tema="escuro"] .alcance{background:#4f2224}
+html[data-tema="escuro"] .equipes .livre{color:#8fdca3}
+html[data-tema="escuro"] .equipes .ocup{color:#ffd98a}
+html[data-tema="escuro"] .registro .cham-t{color:#c7b3ee}
+html[data-tema="escuro"] .registro .emi-t,
+html[data-tema="escuro"] .mrod .aviso,
+html[data-tema="escuro"] #mResumo p[style*="9b2222"]{color:#ffb3b3!important}
+</style>
+<script>
+/* Tema claro/escuro: guarda a escolha neste navegador. Roda antes da pintura para nao piscar. */
+(function(){
+  var raiz=document.documentElement,CHAVE="alerta-morro-tema";
+  function ler(){try{return localStorage.getItem(CHAVE)}catch(e){return null}}
+  function aplicar(escuro){
+    if(escuro)raiz.setAttribute("data-tema","escuro");else raiz.removeAttribute("data-tema");
+    var b=document.getElementById("btnTema");if(b)b.setAttribute("aria-pressed",String(escuro));
+  }
+  aplicar(ler()==="escuro");
+  document.addEventListener("DOMContentLoaded",function(){
+    var b=document.getElementById("btnTema");aplicar(raiz.hasAttribute("data-tema"));
+    b.addEventListener("click",function(){
+      var escuro=!raiz.hasAttribute("data-tema");aplicar(escuro);
+      try{localStorage.setItem(CHAVE,escuro?"escuro":"claro")}catch(e){}
+    });
+  });
+})();
+</script>
+</head>
+<body>
+<button class="tema" id="btnTema" type="button" aria-pressed="false" aria-label="Tema escuro" title="Tema escuro"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.5a6.5 6.5 0 0 1 0 13z" fill="currentColor"/></svg></button>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <h1>Alerta Morro</h1>
+      <p>Onde a chuva acumulada em 72 horas já passou do limite nos morros do Recife, e por onde começar o atendimento.</p>
+    </div>
+    <div class="selo">Protótipo · dados simulados</div>
+  </header>
+
+  <section class="tempo" aria-label="Controle de tempo">
+    <div class="agora"><span id="agora"></span><small>Evento de maio de 2022, reproduzido</small></div>
+    <div class="trilho">
+      <input type="range" id="tempo" min="0" max="31" step="1" value="0" aria-label="Momento do evento">
+      <div class="dias" aria-hidden="true"><span>25 mai</span><span>26 mai</span><span>27 mai</span><span>28 mai</span></div>
+    </div>
+    <button class="play" id="play" type="button">▶ Reproduzir</button>
+    <div class="ajuste">
+      <label for="ajuste">Ajuste geral dos limites</label>
+      <input type="range" id="ajuste" min="-40" max="40" step="5" value="0">
+      <output id="ajusteOut" for="ajuste">0%</output>
+      <span>Cada área tem o próprio limite; este controle sobe ou desce todos de uma vez.</span>
+      <span class="atalhos"><kbd>espaço</kbd> reproduz · <kbd>←</kbd> <kbd>→</kbd> avançam no tempo</span>
+    </div>
+  </section>
+
+  <div class="barra">
+    <div class="chips" role="group" aria-label="Filtro" id="filtros"></div>
+    <span class="sep"></span>
+    <button class="botao emitir" id="btnEmitir" type="button">Emitir alerta</button>
+    <button class="botao" id="btnValid" type="button" aria-pressed="false">Modo validação</button>
+    <button class="botao" id="btnExport" type="button" aria-pressed="false">Exportar fila</button>
+  </div>
+
+  <div class="grade">
+    <div class="col">
+      <section class="painel" aria-label="Mapa">
+        <div class="cab"><h2>Mapa de risco</h2><div class="conta" id="conta"></div></div>
+        <div id="mapa" role="application" aria-label="Mapa das áreas de morro do Recife"></div>
+        <div class="legenda" id="legenda"></div>
+        <div class="regra"><b>Regra.</b> <b>Alerta</b> quando a chuva acumulada em 72 h passa do limite da área e a suscetibilidade é alta. <b>Atenção</b> a partir de 60% do limite, ou acima dele em área de suscetibilidade média. Cada área usa o pluviômetro mais próximo.</div>
+      </section>
+
+      <section class="painel" id="painelValid" aria-label="Validação" hidden>
+        <div class="cab"><h2>Validação · o mapa teria acertado?</h2><span class="nota">Evento inteiro, 25 a 28 mai</span></div>
+        <div class="valid">
+          <div class="metr" id="metr"></div>
+          <p>Compara os alertas com ocorrências de deslizamento <b>simuladas</b> (✕ no mapa). Na fase de testes, entram as ocorrências reais registradas pela Defesa Civil. Mexa no ajuste dos limites e veja o equilíbrio entre acertos e alertas falsos.</p>
+          <ul class="ocolista" id="ocolista"></ul>
+        </div>
+      </section>
+    </div>
+
+    <div class="col">
+      <section class="painel" aria-label="Fila de prioridade">
+        <div class="cab"><h2>Fila de prioridade</h2><span class="nota">Estado, folga até o limite, tendência e moradores</span></div>
+        <ol class="fila" id="fila"></ol>
+        <div class="export" id="painelExport" hidden>
+          <label for="csv" style="font-size:13px;color:var(--muted)">Fila atual em CSV, para enviar às equipes de campo</label>
+          <textarea id="csv" readonly></textarea>
+          <div><button class="botao" id="copiar" type="button">Copiar</button><span id="copiado" aria-live="polite"></span></div>
+        </div>
+      </section>
+
+      <section class="painel" aria-label="Detalhe da área">
+        <div class="cab"><h2>Área selecionada</h2><span id="estadoSel" style="font-size:13px;display:inline-flex;align-items:center;gap:6px"></span></div>
+        <div class="detalhe">
+          <h3 id="nomeSel"></h3>
+          <p class="motivo" id="motivo"></p>
+          <dl class="fatos" id="fatos"></dl>
+          <div class="prev" id="prev"></div>
+          <div class="lim-area"><label for="limArea">Limite desta área</label><input type="range" id="limArea" min="60" max="220" step="5"><output id="limAreaOut"></output><span id="limAreaNota"></span></div>
+          <div class="atend" id="atend" role="group" aria-label="Atendimento"></div>
+          <div class="caixas"><div class="caixinha" id="abrigoSel"></div><div class="caixinha" id="chamSel"></div></div>
+          <div class="graf" id="graf">
+            <svg id="chart" viewBox="0 0 540 250" role="img" aria-label="Chuva na área selecionada"></svg>
+            <div class="dica" id="dica" hidden></div>
+          </div>
+          <div class="legg"><span><i></i>Chuva acumulada em 72 h</span><span><i class="tr"></i>Tendência no ritmo atual</span><span><i class="lm"></i>Limite</span><span><i class="bar"></i>Chuva em 3 h</span></div>
+          <details>
+            <summary>Ver os valores em tabela</summary>
+            <div class="tab"><table id="tabela"></table></div>
+          </details>
+        </div>
+      </section>
+
+      <section class="painel" aria-label="Equipes de campo">
+        <div class="cab"><h2>Equipes de campo</h2><span class="nota">Simuladas · despacho pela área selecionada</span></div>
+        <ol class="equipes" id="equipes"></ol>
+      </section>
+
+      <section class="painel" aria-label="Registro do evento">
+        <div class="cab"><h2>Registro do evento</h2><span class="nota">Mais recente primeiro</span></div>
+        <ol class="registro" id="registro"></ol>
+      </section>
+    </div>
+  </div>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTit" hidden>
+    <div class="caixa">
+      <div class="mcab"><h2 id="mTit">Emitir alerta</h2><span class="selo">Simulação · nada é enviado</span><button class="fechar" id="mFechar" type="button" aria-label="Fechar">×</button></div>
+      <div id="passo1">
+        <div class="mcorpo">
+          <fieldset><legend>Áreas</legend><div class="opcoes" id="mAreas"></div></fieldset>
+          <fieldset><legend>Nível</legend><div class="opcoes" id="mNivel"></div></fieldset>
+          <fieldset><legend>Canais</legend><div class="opcoes" id="mCanais"></div></fieldset>
+          <div><label for="mMsg" style="font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600">Mensagem para o morador</label>
+            <textarea id="mMsg"></textarea>
+            <div class="contador"><span id="mCont"></span><button class="botao" id="mRefaz" type="button">Refazer texto sugerido</button></div></div>
+          <div class="alcance" id="mAlcance"></div>
+        </div>
+        <div class="mrod"><span class="aviso" id="mAviso"></span><button class="botao" id="mCancelar" type="button">Cancelar</button><button class="botao emitir" id="mRevisar" type="button">Revisar</button></div>
+      </div>
+      <div id="passo2" hidden>
+        <div class="mcorpo"><div class="resumo" id="mResumo"></div></div>
+        <div class="mrod"><button class="botao" id="mVoltar" type="button">Voltar e editar</button><button class="botao emitir" id="mConfirmar" type="button">Confirmar emissão (simulação)</button></div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="rodape">
+    <p><b>Todos os números desta tela são simulados</b>, inclusive limites, suscetibilidade, moradores, ocorrências, abrigos, equipes e chamados. As manchas e posições são aproximadas.</p>
+    <p><b>Fontes previstas.</b> Pluviômetros automáticos do Cemaden e carta de suscetibilidade a deslizamentos do Serviço Geológico do Brasil.</p>
+    <p><b>O sistema não emite alerta sozinho.</b> Ele sugere; quem decide e emite é o técnico da Defesa Civil. Nesta demonstração, nada é enviado. Emergências: 199.</p>
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+(function(){
+  "use strict";
+  // ================= dados simulados =================
+  var ESTACOES=[
+    {id:"P1",lat:-7.982,lon:-34.937,fator:0.92,atraso:0},
+    {id:"P2",lat:-8.003,lon:-34.904,fator:1.12,atraso:-2},
+    {id:"P3",lat:-8.017,lon:-34.921,fator:0.84,atraso:2},
+    {id:"P4",lat:-8.118,lon:-34.945,fator:1.06,atraso:-1},
+    {id:"P5",lat:-8.142,lon:-34.947,fator:0.97,atraso:3}
+  ];
+  var AREAS=[
+    {id:1, nome:"Guabiraba",           lat:-7.972,lon:-34.948,susc:"alta", lim:150,pop:2100},
+    {id:2, nome:"Passarinho",          lat:-7.988,lon:-34.928,susc:"alta", lim:130,pop:3400},
+    {id:3, nome:"Dois Unidos",         lat:-7.998,lon:-34.905,susc:"alta", lim:120,pop:5200},
+    {id:4, nome:"Córrego do Jenipapo", lat:-8.004,lon:-34.940,susc:"alta", lim:145,pop:2800},
+    {id:5, nome:"Nova Descoberta",     lat:-8.008,lon:-34.922,susc:"alta", lim:115,pop:6100},
+    {id:6, nome:"Linha do Tiro",       lat:-8.010,lon:-34.898,susc:"média",lim:140,pop:4300},
+    {id:7, nome:"Vasco da Gama",       lat:-8.020,lon:-34.915,susc:"média",lim:150,pop:3900},
+    {id:8, nome:"Morro da Conceição",  lat:-8.027,lon:-34.904,susc:"média",lim:160,pop:4700},
+    {id:9, nome:"Bomba do Hemetério",  lat:-8.022,lon:-34.889,susc:"alta", lim:135,pop:2500},
+    {id:10,nome:"Ibura",               lat:-8.115,lon:-34.940,susc:"alta", lim:125,pop:5800},
+    {id:11,nome:"Cohab",               lat:-8.125,lon:-34.957,susc:"alta", lim:155,pop:3600},
+    {id:12,nome:"Jordão",              lat:-8.137,lon:-34.935,susc:"alta", lim:130,pop:3100},
+    {id:13,nome:"Jardim Monte Verde",  lat:-8.148,lon:-34.952,susc:"alta", lim:120,pop:4000}
+  ];
+  // ocorrências simuladas: área e passo (0 = 25 mai 00h, a cada 3 h)
+  var OCORR=[
+    {area:3, t:25},{area:2, t:26},{area:5, t:27},{area:13,t:26},
+    {area:10,t:28},{area:6, t:27},{area:12,t:29}
+  ];
+
+  // abrigos, equipes e chamados ao 199: tudo simulado
+  var ABRIGOS=[
+    {id:1,tipo:"Escola",lat:-7.979,lon:-34.941,cap:300},
+    {id:2,tipo:"Centro comunitário",lat:-7.995,lon:-34.917,cap:250},
+    {id:3,tipo:"Escola",lat:-8.013,lon:-34.909,cap:400},
+    {id:4,tipo:"Igreja",lat:-8.031,lon:-34.894,cap:200},
+    {id:5,tipo:"Escola",lat:-8.121,lon:-34.929,cap:350},
+    {id:6,tipo:"Ginásio",lat:-8.139,lon:-34.962,cap:500}
+  ];
+  var EQUIPES=[
+    {id:1,base:"Sede, Centro",lat:-8.062,lon:-34.882},
+    {id:2,base:"Sede, Centro",lat:-8.062,lon:-34.882},
+    {id:3,base:"Base Norte",lat:-8.038,lon:-34.922},
+    {id:4,base:"Base Sul",lat:-8.104,lon:-34.924}
+  ];
+  var CHAMADOS=[
+    {area:3,t:19,txt:"rachadura nova na parede"},{area:5,t:21,txt:"água descendo a barreira"},
+    {area:8,t:22,txt:"água descendo a barreira"},{area:2,t:22,txt:"barulho de terra se mexendo"},
+    {area:13,t:23,txt:"muro com rachadura"},{area:3,t:23,txt:"lona rasgada na encosta"},
+    {area:10,t:24,txt:"poste inclinado"},{area:6,t:24,txt:"rachadura no piso"},
+    {area:12,t:26,txt:"terra caindo no quintal"},{area:9,t:27,txt:"árvore inclinando"}
+  ];
+
+  var H0=24, NV=32, NT=H0+NV, PASSO_H=3, JAN=24; // 72 h = 24 passos de 3 h
+  var DIAS=[25,26,27,28];
+  function rnd(seed){var s=seed;return function(){s=(s*16807)%2147483647;return (s-1)/2147483646}}
+  var PULSOS=[[20,3.5],[50,3],[84,6],[108,8],[132,13],[141,17],[150,22],[159,14]]; // [hora desde 22 mai 00h, intensidade]
+  ESTACOES.forEach(function(e,i){
+    var r=rnd(97+i*31), s=[];
+    for(var k=0;k<NT;k++){
+      var h=k*PASSO_H, v=0;
+      PULSOS.forEach(function(p){var d=h-p[0]-e.atraso;v+=p[1]*Math.exp(-d*d/(2*25))});
+      v=v*e.fator*(0.85+0.3*r())+(r()<0.35?r()*1.5:0);
+      s.push(Math.round(v*10)/10);
+    }
+    e.chuva=s;
+    e.acum=s.map(function(_,k){var a=0;for(var j=Math.max(0,k-JAN+1);j<=k;j++)a+=s[j];return Math.round(a)});
+  });
+  function dist(a,b){var dx=(a.lon-b.lon)*Math.cos(a.lat*Math.PI/180)*111.32,dy=(a.lat-b.lat)*110.57;return Math.sqrt(dx*dx+dy*dy)}
+  AREAS.forEach(function(a){
+    var m=null;ESTACOES.forEach(function(e){var d=dist(a,e);if(!m||d<m.d)m={e:e,d:d}});
+    a.est=m.e;a.km=m.d;a.limBase=a.lim;a.zona=a.lat>-8.06?"norte":"sul";a.atend="pendente";a.equipe=null;a.emitido=null;
+    var b=null;ABRIGOS.forEach(function(x){var d=dist(a,x);if(!b||d<b.d)b={x:x,d:d}});
+    a.abrigo=b.x;a.abrigoKm=b.d;a.abrigoMin=Math.max(5,Math.round(b.d*1.3/4*60/5)*5);
+  });
+  EQUIPES.forEach(function(e){e.pos={lat:e.lat,lon:e.lon};e.area=null;e.t0=null;e.eta=null});
+
+  // ================= estado =================
+  var st={t:0,ajuste:0,sel:3,timer:null,filtro:"todas",valid:false,export:false,acoes:[],emissoes:[]};
+  var EST=[{k:"good",nome:"Normal"},{k:"warn",nome:"Atenção"},{k:"crit",nome:"Alerta"}];
+  var COR={0:"#2e9e4a",1:"#f0a91c",2:"#d03b3b"};
+  var ATEND={pendente:"Pendente",enviada:"Equipe enviada",vistoriada:"Vistoriada"};
+  var NIVEIS=[{k:"atencao",nome:"Atenção",inst:"Fique atento a rachaduras, estalos e água descendo a barreira."},
+              {k:"alerta",nome:"Alerta",inst:"Prepare documentos e remédios e esteja pronto para sair."},
+              {k:"maximo",nome:"Alerta máximo",inst:"Saia agora de casa e vá para o abrigo indicado."}];
+  var CANAIS=[{k:"sms",nome:"SMS",info:"para quem cadastrou o CEP"},{k:"cel",nome:"Alerta no celular",info:"tela cheia com som, na área"},
+              {k:"sirene",nome:"Sirene",info:"nos morros que têm sirene"},{k:"tg",nome:"Telegram",info:"canal do Alerta Morro"}];
+  function porId(id){return AREAS.filter(function(x){return x.id===id})[0]}
+  function equipe(id){return EQUIPES.filter(function(x){return x.id===id})[0]}
+  function hora(t,min){var m=t*180+(min||0),d=25+Math.floor(m/1440),r=m%1440;return d+" mai, "+String(Math.floor(r/60)).padStart(2,"0")+"h"+(r%60?String(r%60).padStart(2,"0"):"")}
+  function chamRecentes(a,t){return CHAMADOS.filter(function(c){return c.area===a.id&&c.t<=t&&c.t>t-4})}
+  function etaMin(e,a){return Math.round(dist(e.pos,a)*1.4/25*60)+5}
+  function situacao(e){if(!e.area)return null;var dec=(st.t-e.t0)*180;return dec>=e.eta?"local":"caminho"}
+  function $(id){return document.getElementById(id)}
+  function k(t){return H0+t}
+  function lim(a){return Math.round(a.lim*(1+st.ajuste/100))}
+  function mm(a,t){return a.est.acum[k(t)]}
+  function chuva3(a,t){return a.est.chuva[k(t)]}
+  function estado(a,t){var v=mm(a,t),L=lim(a);
+    if(v>=L&&a.susc==="alta")return 2;
+    if(v>=L||v>=0.6*L)return 1;
+    return 0}
+  function rotulo(t){var h=t*PASSO_H;return DIAS[Math.floor(h/24)]+" mai, "+String(h%24).padStart(2,"0")+"h"}
+  function ultimas6(a,t){return a.est.chuva[k(t)]+a.est.chuva[k(t)-1]}
+  function anteriores6(a,t){return a.est.chuva[k(t)-2]+a.est.chuva[k(t)-3]}
+  function tendencia(a,t){var u=ultimas6(a,t),p=anteriores6(a,t);
+    if(u>p+3&&u>4)return {s:"↑",n:"subindo",v:2};
+    if(u<p-3&&p>4)return {s:"↓",n:"caindo",v:0};
+    return {s:"→",n:u>4?"estável, chovendo":"estável",v:1}}
+  function desde(a,t){var e=estado(a,t);if(e===0)return null;var s=t;while(s>0&&estado(a,s-1)>=e)s--;return s}
+  // projeção simples: a chuva das últimas 6 h continua, e a chuva antiga sai da janela de 72 h
+  function projecao(a,t){
+    var ritmo=ultimas6(a,t)/2,acc=mm(a,t),L=lim(a),serie=[acc],cruza=null;
+    for(var j=1;j<=8;j++){
+      var sai=a.est.chuva[k(t)-JAN+j];acc=acc+ritmo-sai;serie.push(Math.max(0,Math.round(acc)));
+      if(cruza===null&&mm(a,t)<L&&acc>=L)cruza=j*PASSO_H;
+    }
+    return {serie:serie,cruza:cruza,ritmo:ritmo};
+  }
+  function pontuacao(a,t){
+    var e=estado(a,t),r=mm(a,t)/lim(a),td=tendencia(a,t);
+    var p=e*100+Math.min(r,2)*40+(a.susc==="alta"?15:5)+td.v*8+Math.min(a.pop/500,15)+chamRecentes(a,t).length*12;
+    return Math.round(p);
+  }
+  function motivo(a,t){
+    var r=mm(a,t)/lim(a),td=tendencia(a,t),partes=[];
+    partes.push(r>=1?Math.round((r-1)*100)+"% acima do limite":Math.round((1-r)*100)+"% abaixo do limite");
+    partes.push("chuva "+td.n);
+    var ch=chamRecentes(a,t).length;if(ch)partes.push(ch+(ch>1?" chamados":" chamado")+" ao 199 em 12 h");
+    partes.push("cerca de "+a.pop.toLocaleString("pt-BR")+" moradores");
+    return partes;
+  }
+  function filtrada(a){
+    if(st.filtro==="norte")return a.zona==="norte";
+    if(st.filtro==="sul")return a.zona==="sul";
+    if(st.filtro==="alerta")return estado(a,st.t)===2;
+    if(st.filtro==="pendentes")return a.atend!=="vistoriada"&&estado(a,st.t)>0;
+    return true;
+  }
+  function ordenadas(){
+    var g={pendente:0,enviada:1,vistoriada:2};
+    return AREAS.slice().sort(function(a,b){
+      var va=a.atend==="vistoriada"?1:0,vb=b.atend==="vistoriada"?1:0;
+      if(va!==vb)return va-vb;
+      var ea=estado(a,st.t),eb=estado(b,st.t);if(ea!==eb)return eb-ea;
+      if(g[a.atend]!==g[b.atend])return g[a.atend]-g[b.atend];
+      return pontuacao(b,st.t)-pontuacao(a,st.t);
+    });
+  }
+
+  // ================= glifos =================
+  var NS="http://www.w3.org/2000/svg";
+  function el(tag,attrs,txt){var e=document.createElementNS(NS,tag);for(var x in attrs)e.setAttribute(x,attrs[x]);if(txt!=null)e.textContent=txt;return e}
+  function formaSVG(e,x,y,r,extra){
+    extra=extra||"";
+    if(e===0)return '<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="'+COR[0]+'" '+extra+'/>';
+    if(e===1)return '<polygon points="'+[x,y-r*1.25,x+r*1.2,y+r*0.9,x-r*1.2,y+r*0.9].join(",")+'" fill="'+COR[1]+'" '+extra+'/>';
+    return '<rect x="'+(x-r)+'" y="'+(y-r)+'" width="'+2*r+'" height="'+2*r+'" rx="2.5" fill="'+COR[2]+'" '+extra+'/>';
+  }
+  function glifo(e){var s=document.createElement("span");s.innerHTML='<svg class="gl" viewBox="0 0 16 16" aria-hidden="true">'+formaSVG(e,8,8.5,6)+'</svg>';return s.firstChild}
+
+  // ================= mapa =================
+  var temMapa=typeof L!=="undefined", mapa, manchas={}, icones={}, linhaSel=null, linhaAbr=null, ocoLayer=null, eqLayer=null, chLayer=null;
+  function blob(a,seed){
+    var r=rnd(seed),R=a.susc==="alta"?620:520,pts=[],n=16;
+    var raios=[];for(var i=0;i<n;i++)raios.push(R*(0.7+0.5*r()));
+    for(i=0;i<n;i++){var ang=i/n*2*Math.PI,rr=(raios[i]+raios[(i+1)%n]+raios[(i+n-1)%n])/3;
+      pts.push([a.lat+rr*Math.sin(ang)/110570,a.lon+rr*Math.cos(ang)/(111320*Math.cos(a.lat*Math.PI/180))])}
+    return pts;
+  }
+  function iconeArea(a,e){
+    var sel=a.id===st.sel, html='<svg width="30" height="30" viewBox="0 0 30 30">'+formaSVG(e,15,15,11,'stroke="#fff" stroke-width="2"')+
+      '<text x="15" y="'+(e===1?17.5:15.5)+'" text-anchor="middle" dominant-baseline="central" font-family="IBM Plex Mono,monospace" font-size="11" font-weight="600" fill="'+(e===2?"#fff":"#10161c")+'">'+a.id+'</text></svg>';
+    return L.divIcon({className:"area-ic"+(sel?" sel":"")+(filtrada(a)?"":" apagada"),html:html,iconSize:[30,30],iconAnchor:[15,15]});
+  }
+  function iniciaMapa(){
+    if(!temMapa){$("mapa").innerHTML='<p class="vazio">Não foi possível carregar o mapa nesta conexão. A fila, o detalhe e o registro continuam funcionando.</p>';return}
+    mapa=L.map("mapa",{zoomControl:true,zoomSnap:0.25,scrollWheelZoom:false,attributionControl:false});
+    mapa.createPane("esquema");mapa.getPane("esquema").style.zIndex=150;
+    // fundo esquemático: costa, rio e referências (posições aproximadas)
+    var E={pane:"esquema",interactive:false};
+    L.rectangle([[-7.80,-35.20],[-8.30,-34.60]],Object.assign({stroke:false,fillColor:"#eef0ec",fillOpacity:1},E)).addTo(mapa);
+    var costa=[[-7.90,-34.842],[-7.95,-34.846],[-7.99,-34.853],[-8.02,-34.862],[-8.055,-34.867],[-8.085,-34.876],[-8.12,-34.893],[-8.155,-34.905],[-8.30,-34.93],[-8.30,-34.60],[-7.80,-34.60],[-7.80,-34.838]];
+    L.polygon(costa,Object.assign({stroke:false,fillColor:"#cddfea",fillOpacity:1},E)).addTo(mapa);
+    L.polyline([[-8.03,-35.20],[-8.041,-34.965],[-8.034,-34.935],[-8.046,-34.908],[-8.058,-34.888],[-8.063,-34.869]],Object.assign({color:"#a9c6d8",weight:5},E)).addTo(mapa);
+    function rot(t,lat,lon,agua){L.marker([lat,lon],{pane:"esquema",interactive:false,icon:L.divIcon({className:"esq-rot"+(agua?" agua":""),html:t,iconSize:null})}).addTo(mapa)}
+    rot("Rio Capibaribe",-8.047,-34.99,true);rot("Oceano Atlântico",-8.04,-34.858,true);
+    rot("Centro",-8.068,-34.892);rot("Boa Viagem",-8.115,-34.91);rot("Casa Forte",-8.05,-34.935);
+    // pluviômetros
+    ESTACOES.forEach(function(e){
+      L.marker([e.lat,e.lon],{icon:L.divIcon({className:"plu",html:e.id,iconSize:[24,18],iconAnchor:[12,9]}),keyboard:false,zIndexOffset:-100})
+        .bindTooltip("Pluviômetro "+e.id+" (simulado)",{direction:"top",offset:[0,-8]}).addTo(mapa);
+    });
+    // abrigos
+    var casa='<svg width="24" height="24" viewBox="0 0 24 24"><path d="M3 11 L12 3 L21 11 V21 H3 Z" fill="#2c7a6b" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M10 21 V15 H14 V21" fill="#fff"/></svg>';
+    ABRIGOS.forEach(function(x){
+      L.marker([x.lat,x.lon],{icon:L.divIcon({className:"abr",html:casa,iconSize:[24,24],iconAnchor:[12,20]}),keyboard:false,zIndexOffset:-50})
+        .bindTooltip("Abrigo "+x.id+" · "+x.tipo+" (simulado) · "+x.cap+" vagas",{direction:"top",offset:[0,-16]}).addTo(mapa);
+    });
+    // áreas
+    AREAS.forEach(function(a){
+      var p=L.polygon(blob(a,a.id*53+7),{weight:1.5,color:"#fff",fillOpacity:.5}).addTo(mapa);
+      p.on("click",function(){seleciona(a.id)});
+      manchas[a.id]=p;
+      var m=L.marker([a.lat,a.lon],{icon:iconeArea(a,0),title:a.nome,riseOnHover:true}).addTo(mapa);
+      m.on("click",function(){seleciona(a.id)});
+      m.on("keypress",function(ev){if(ev.originalEvent.key==="Enter")seleciona(a.id)});
+      icones[a.id]=m;
+    });
+    ocoLayer=L.layerGroup();eqLayer=L.layerGroup().addTo(mapa);chLayer=L.layerGroup().addTo(mapa);
+    enquadra();
+  }
+  function enquadra(){
+    if(!temMapa)return;
+    var lista=AREAS.filter(function(a){return st.filtro==="norte"?a.zona==="norte":st.filtro==="sul"?a.zona==="sul":true});
+    var bb=L.latLngBounds(lista.map(function(a){return [a.lat,a.lon]})).pad(st.filtro==="todas"?0.08:0.25);
+    if(mapa._loaded)mapa.flyToBounds(bb,{duration:0.6});else mapa.fitBounds(bb);
+  }
+  function desenhaMapa(){
+    if(!temMapa)return;
+    AREAS.forEach(function(a){
+      var e=estado(a,st.t),f=filtrada(a),sel=a.id===st.sel;
+      manchas[a.id].setStyle({fillColor:COR[e],fillOpacity:f?(e===0?.35:.55):.08,color:sel?"#16212b":"#fff",weight:sel?3:1.5,opacity:f?1:.3});
+      icones[a.id].setIcon(iconeArea(a,e));
+      icones[a.id].getElement()&&icones[a.id].getElement().setAttribute("aria-label",a.id+". "+a.nome+": "+EST[e].nome+", "+mm(a,st.t)+" mm");
+    });
+    var a=AREAS.filter(function(x){return x.id===st.sel})[0];
+    if(linhaSel)mapa.removeLayer(linhaSel);
+    linhaSel=L.polyline([[a.lat,a.lon],[a.est.lat,a.est.lon]],{color:"#0b5c8a",weight:2,dashArray:"4 4",interactive:false}).addTo(mapa);
+    if(linhaAbr)mapa.removeLayer(linhaAbr);
+    linhaAbr=L.polyline([[a.lat,a.lon],[a.abrigo.lat,a.abrigo.lon]],{color:"#2c7a6b",weight:3,dashArray:"2 6",lineCap:"round",interactive:false}).addTo(mapa);
+    eqLayer.clearLayers();
+    EQUIPES.forEach(function(e){var ar=e.area?porId(e.area):null,sit=situacao(e),lat,lon;
+      if(ar&&sit==="local"){lat=ar.lat+0.003;lon=ar.lon-0.004}
+      else if(ar){lat=(e.pos.lat+ar.lat)/2;lon=(e.pos.lon+ar.lon)/2}
+      else{lat=e.pos.lat;lon=e.pos.lon}
+      L.marker([lat,lon],{icon:L.divIcon({className:"eqp",html:"E"+e.id,iconSize:[24,18],iconAnchor:[12,9]}),keyboard:false,zIndexOffset:500})
+        .bindTooltip("Equipe "+e.id+" · "+(ar?(sit==="local"?"em vistoria em ":"a caminho de ")+ar.nome:"livre ("+(e.base)+")"),{direction:"top",offset:[0,-8]}).addTo(eqLayer);
+      if(ar&&sit==="caminho")L.polyline([[e.pos.lat,e.pos.lon],[ar.lat,ar.lon]],{color:"#16212b",weight:1.5,opacity:.5,dashArray:"1 5",interactive:false}).addTo(eqLayer);
+    });
+    chLayer.clearLayers();
+    AREAS.forEach(function(ar){var n=chamRecentes(ar,st.t).length;if(!n)return;
+      L.marker([ar.lat+0.0045,ar.lon+0.0065],{icon:L.divIcon({className:"cham",html:"199"+(n>1?"·"+n:""),iconSize:[n>1?38:28,18],iconAnchor:[14,9]}),keyboard:false,zIndexOffset:400})
+        .bindTooltip(n+(n>1?" chamados":" chamado")+" ao 199 nas últimas 12 h · "+ar.nome,{direction:"top",offset:[0,-8]}).addTo(chLayer)});
+    ocoLayer.clearLayers();
+    if(st.valid){
+      OCORR.forEach(function(o){
+        var ar=AREAS.filter(function(x){return x.id===o.area})[0],fut=o.t>st.t;
+        L.marker([ar.lat-0.0055,ar.lon+0.0075],{icon:L.divIcon({className:"oco"+(fut?" futuro":""),html:"<span>✕</span>",iconSize:[22,22],iconAnchor:[11,11]}),keyboard:false})
+          .bindTooltip("Ocorrência simulada · "+ar.nome+" · "+rotulo(o.t)+(fut?" (ainda não aconteceu neste momento)":""),{direction:"top",offset:[0,-10]}).addTo(ocoLayer);
+      });
+      ocoLayer.addTo(mapa);
+    } else if(mapa.hasLayer(ocoLayer)) mapa.removeLayer(ocoLayer);
+  }
+  function legenda(){
+    var l=$("legenda");
+    [2,1,0].forEach(function(e){var sp=document.createElement("span");sp.appendChild(glifo(e));sp.appendChild(document.createTextNode(EST[e].nome));l.appendChild(sp)});
+    var p=document.createElement("span");p.innerHTML='<i class="pq"></i>Pluviômetro';l.appendChild(p);
+    var ab=document.createElement("span");ab.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24"><path d="M3 11 L12 3 L21 11 V21 H3 Z" fill="#2c7a6b"/></svg>Abrigo';l.appendChild(ab);
+    var eq=document.createElement("span");eq.innerHTML='<i class="lg-eqp">E1</i>Equipe de campo';l.appendChild(eq);
+    var chm=document.createElement("span");chm.innerHTML='<i class="lg-cham">199</i>Chamado nas últimas 12 h';l.appendChild(chm);
+    var o=document.createElement("span");o.innerHTML='<span class="oco"><span style="width:14px;height:14px;font-size:9px;border-width:1px">✕</span></span>Ocorrência (modo validação)';l.appendChild(o);
+    var n=document.createElement("span");n.style.color="var(--muted)";n.textContent="Mancha = área de morro; número = posição na lista de áreas.";l.appendChild(n);
+  }
+
+  // ================= fila =================
+  function desenhaFila(){
+    var ol=$("fila");ol.textContent="";
+    var todas=ordenadas().filter(function(x){return x.atend!=="vistoriada"}),lista=ordenadas().filter(filtrada);
+    if(!lista.length){var li=document.createElement("li");li.className="vazio";li.textContent="Nenhuma área neste filtro agora.";ol.appendChild(li)}
+    lista.forEach(function(a){
+      var e=estado(a,st.t),v=mm(a,st.t),L2=lim(a),td=tendencia(a,st.t),teto=Math.max(L2*1.8,1);
+      var li=document.createElement("li"),b=document.createElement("button");
+      b.type="button";b.className="linha"+(a.atend==="vistoriada"?" feito":"");b.setAttribute("aria-pressed",a.id===st.sel?"true":"false");
+      var ps=document.createElement("span");ps.className="pos";ps.textContent=a.atend==="vistoriada"?"–":(todas.indexOf(a)+1)+"º";
+      var id=document.createElement("span");id.className="id";id.appendChild(glifo(e));id.appendChild(document.createTextNode(a.id));
+      var nome=document.createElement("span");nome.className="nome";
+      var s=document.createElement("strong");s.appendChild(document.createTextNode(a.nome));
+      if(a.atend!=="pendente"){var c=document.createElement("span");c.className="status "+a.atend;c.textContent=a.atend==="enviada"?"Equipe "+a.equipe+(situacao(equipe(a.equipe))==="local"?" no local":" a caminho"):"Vistoriada";s.appendChild(c)}
+      if(a.emitido&&a.emitido.t<=st.t){var c2=document.createElement("span");c2.className="status emitido";c2.textContent=a.emitido.nivel+" emitido";s.appendChild(c2)}
+      var sm=document.createElement("small");sm.textContent=EST[e].nome+" · "+motivo(a,st.t).join(" · ");
+      nome.appendChild(s);nome.appendChild(sm);
+      var med=document.createElement("span");med.className="medidor";med.title="Chuva acumulada em relação ao limite da área";
+      var i=document.createElement("i");i.style.width=Math.min(100,v/teto*100)+"%";
+      var u=document.createElement("u");u.style.left=(L2/teto*100)+"%";med.appendChild(i);med.appendChild(u);
+      var val=document.createElement("span");val.className="mm";val.innerHTML=v+' mm <span class="tend" title="Chuva '+td.n+'">'+td.s+'</span>';
+      [ps,id,nome,med,val].forEach(function(x){b.appendChild(x)});
+      b.addEventListener("click",function(){seleciona(a.id)});
+      li.appendChild(b);ol.appendChild(li);
+    });
+    var c=[0,0,0];AREAS.forEach(function(a){c[estado(a,st.t)]++});
+    var conta=$("conta");conta.textContent="";
+    [2,1,0].forEach(function(e){var sp=document.createElement("span");sp.appendChild(glifo(e));var bb=document.createElement("b");bb.textContent=c[e];sp.appendChild(bb);sp.appendChild(document.createTextNode(" "+EST[e].nome.toLowerCase()));conta.appendChild(sp)});
+    if(st.export)desenhaExport();
+  }
+
+  // ================= detalhe =================
+  var CW=540,CH=250,ML=40,MR=14,MT=24,MB=28;
+  function gx(t){return ML+(CW-ML-MR)*t/(NV-1)}
+  function desenhaDetalhe(){
+    var a=AREAS.filter(function(x){return x.id===st.sel})[0],e=estado(a,st.t),v=mm(a,st.t),L2=lim(a),td=tendencia(a,st.t),ds=desde(a,st.t),pr=projecao(a,st.t);
+    $("nomeSel").textContent=a.id+". "+a.nome;
+    var es=$("estadoSel");es.textContent="";es.appendChild(glifo(e));es.appendChild(document.createTextNode(EST[e].nome+" em "+rotulo(st.t)));
+    var ord=ordenadas().filter(function(x){return x.atend!=="vistoriada"}),pos=ord.indexOf(a)+1;
+    $("motivo").innerHTML=(a.atend==="vistoriada"?"<b>Já vistoriada</b> · ":"<b>"+pos+"º na fila</b> · ")+motivo(a,st.t).join(" · ");
+    var f=$("fatos");f.textContent="";
+    [["Chuva em 72 h",v+" mm"],["Limite da área",L2+" mm"],["Suscetibilidade",a.susc],["Moradores (sim.)",a.pop.toLocaleString("pt-BR")],
+     ["Pluviômetro",a.est.id+" · "+a.km.toFixed(1).replace(".",",")+" km"],["Últimas 6 h",ultimas6(a,st.t).toFixed(0)+" mm · "+td.n],
+     [e===2?"Em alerta desde":e===1?"Em atenção desde":"Estado",ds===null?"normal":rotulo(ds)]].forEach(function(p){
+      var d=document.createElement("div"),dt=document.createElement("dt"),dd=document.createElement("dd");dt.textContent=p[0];dd.textContent=p[1];d.appendChild(dt);d.appendChild(dd);f.appendChild(d)});
+    var txt;
+    if(v>=L2)txt="<b>Já passou do limite</b> em "+(v-L2)+" mm."+(td.v===2?" A chuva continua subindo.":"");
+    else if(pr.cruza!==null)txt="<b>No ritmo das últimas 6 h, passa do limite em cerca de "+pr.cruza+" h.</b>";
+    else txt="No ritmo atual, <b>não deve passar do limite nas próximas 24 h</b>.";
+    $("prev").innerHTML=txt+"<small>Estimativa simples: repete a chuva das últimas 6 h. Na versão final, entra a previsão meteorológica.</small>";
+    var la=$("limArea");la.value=a.lim;$("limAreaOut").textContent=a.lim+" mm";
+    $("limAreaNota").textContent=(a.lim!==a.limBase?"calibrado (padrão "+a.limBase+" mm)":"padrão desta área")+(st.ajuste?" · com ajuste geral: "+L2+" mm":"");
+    desenhaAtend(a,e);
+    var ab=a.abrigo,ocup=AREAS.filter(function(x){return x.abrigo===ab}).map(function(x){return x.nome});
+    $("abrigoSel").innerHTML='<h4>Abrigo mais próximo</h4><b>Abrigo '+ab.id+' · '+ab.tipo+'</b> (simulado)<br>'+a.abrigoKm.toFixed(1).replace(".",",")+' km · cerca de '+a.abrigoMin+' min a pé · '+ab.cap+' vagas'+(ocup.length>1?'<br><small style="color:var(--muted)">Também recebe: '+ocup.filter(function(n){return n!==a.nome}).join(", ")+'</small>':'');
+    var chs=CHAMADOS.filter(function(c){return c.area===a.id&&c.t<=st.t}).sort(function(x,y){return y.t-x.t});
+    $("chamSel").innerHTML='<h4>Chamados ao 199 (simulados)</h4>'+(chs.length?'<ul>'+chs.map(function(c){return '<li><time>'+rotulo(c.t)+'</time>'+c.txt+'</li>'}).join("")+'</ul>':'Nenhum chamado até agora.');
+    // gráfico
+    var s=$("chart");while(s.firstChild)s.removeChild(s.firstChild);
+    var ymax=Math.max(300,L2*1.5,Math.max.apply(null,a.est.acum.slice(H0))+20);ymax=Math.ceil(ymax/100)*100;
+    function gy(val){return MT+(CH-MT-MB)*(1-val/ymax)}
+    for(var y=0;y<=ymax;y+=100){
+      s.appendChild(el("line",{x1:ML,x2:CW-MR,y1:gy(y),y2:gy(y),stroke:"var(--line)","stroke-width":1}));
+      s.appendChild(el("text",{x:ML-6,y:gy(y)+3.5,"text-anchor":"end"},y));
+    }
+    s.appendChild(el("text",{x:ML-6,y:MT-13,"text-anchor":"end"},"mm"));
+    DIAS.forEach(function(d,i){var x=gx(i*8);
+      s.appendChild(el("line",{x1:x,x2:x,y1:CH-MB,y2:CH-MB+4,stroke:"var(--muted)","stroke-width":1}));
+      s.appendChild(el("text",{x:x,y:CH-9,"text-anchor":i===0?"start":"middle"},d+" mai"))});
+    // barras de chuva em 3 h (escala própria: 0–40 mm ocupa a faixa de baixo)
+    var bw=(CW-ML-MR)/(NV-1)*0.6, faixa=(CH-MT-MB)*0.32;
+    for(var t=0;t<=st.t;t++){var c=chuva3(a,t),hgt=Math.min(1,c/40)*faixa;
+      if(hgt>0.5)s.appendChild(el("rect",{x:gx(t)-bw/2,y:CH-MB-hgt,width:bw,height:hgt,fill:"#9fb6c6"}))}
+    // limite
+    s.appendChild(el("line",{x1:ML,x2:CW-MR,y1:gy(L2),y2:gy(L2),stroke:"var(--ink)","stroke-width":1.5,"stroke-dasharray":"5 4"}));
+    var lt=el("text",{x:ML+4,y:gy(L2)-5},"limite "+L2+" mm");lt.style.fill="var(--ink)";s.appendChild(lt);
+    // acumulado até agora
+    var p=[];for(t=0;t<=st.t;t++)p.push(gx(t).toFixed(1)+","+gy(mm(a,t)).toFixed(1));
+    if(p.length>1)s.appendChild(el("polygon",{points:gx(0)+","+gy(0)+" "+p.join(" ")+" "+gx(st.t)+","+gy(0),fill:"var(--accent)","fill-opacity":0.1}));
+    s.appendChild(el("polyline",{points:p.join(" "),fill:"none",stroke:"var(--accent)","stroke-width":2.2,"stroke-linejoin":"round","stroke-linecap":"round"}));
+    // tendência
+    var q=[];for(var j=0;j<pr.serie.length&&st.t+j<NV;j++)q.push(gx(st.t+j).toFixed(1)+","+gy(Math.min(ymax,pr.serie[j])).toFixed(1));
+    if(q.length>1)s.appendChild(el("polyline",{points:q.join(" "),fill:"none",stroke:"var(--accent)","stroke-width":1.8,"stroke-dasharray":"4 4"}));
+    // agora
+    s.appendChild(el("line",{x1:gx(st.t),x2:gx(st.t),y1:MT,y2:CH-MB,stroke:"var(--muted)","stroke-width":1}));
+    s.appendChild(el("circle",{cx:gx(st.t),cy:gy(v),r:5,fill:"var(--accent)",stroke:"#fff","stroke-width":2}));
+    var perto=st.t>NV-6,lab=el("text",{x:gx(st.t)+(perto?-9:9),y:gy(v)-9,"text-anchor":perto?"end":"start"},v+" mm");lab.style.fill="var(--ink)";lab.style.fontWeight="500";s.appendChild(lab);
+    // hover
+    var hv=el("circle",{r:4,fill:"#fff",stroke:"var(--accent)","stroke-width":2,visibility:"hidden"});s.appendChild(hv);
+    var alvo=el("rect",{x:ML,y:MT,width:CW-ML-MR,height:CH-MT-MB,fill:"transparent"});s.appendChild(alvo);
+    var dica=$("dica");
+    function mover(ev){var r=s.getBoundingClientRect(),xr=(ev.clientX-r.left)/r.width*CW;
+      var tt=Math.max(0,Math.min(st.t,Math.round((xr-ML)/(CW-ML-MR)*(NV-1)))),val=mm(a,tt);
+      hv.setAttribute("cx",gx(tt));hv.setAttribute("cy",gy(val));hv.setAttribute("visibility","visible");
+      dica.hidden=false;dica.textContent=rotulo(tt)+" · "+val+" mm em 72 h · "+chuva3(a,tt)+" mm em 3 h";
+      dica.style.left=Math.max(120,Math.min(r.width-120,gx(tt)/CW*r.width))+"px";dica.style.top=(gy(val)/CH*r.height)+"px"}
+    alvo.addEventListener("pointermove",mover);alvo.addEventListener("pointerdown",mover);
+    alvo.addEventListener("pointerleave",function(){hv.setAttribute("visibility","hidden");dica.hidden=true});
+    // tabela
+    var tb=$("tabela");tb.textContent="";
+    var hr=tb.insertRow();["Momento","Chuva em 3 h","Em 72 h","Estado"].forEach(function(h){var th=document.createElement("th");th.textContent=h;hr.appendChild(th)});
+    for(t=st.t;t>=0;t--){var row=tb.insertRow();row.insertCell().textContent=rotulo(t);row.insertCell().textContent=chuva3(a,t).toFixed(1)+" mm";row.insertCell().textContent=mm(a,t)+" mm";row.insertCell().textContent=EST[estado(a,t)].nome}
+  }
+
+  // ================= atendimento =================
+  function desenhaAtend(a,e){
+    var box=$("atend"),h='';
+    if(a.atend==="pendente"){
+      var livres=EQUIPES.filter(function(x){return !x.area});
+      h+='<div class="lin"><span>Atendimento:</span><span class="st">pendente</span></div><div class="lin"><span>Enviar:</span>';
+      if(livres.length)livres.slice().sort(function(x,y){return etaMin(x,a)-etaMin(y,a)}).forEach(function(x,i){h+='<button type="button" data-acao="enviar" data-eq="'+x.id+'"'+(i===0?' class="prim"':'')+'>Equipe '+x.id+' · ~'+etaMin(x,a)+' min</button>'});
+      else h+='<span>todas as equipes estão ocupadas</span>';
+      h+='</div>';
+    } else if(a.atend==="enviada"){
+      var eq=equipe(a.equipe),sit=situacao(eq);
+      h+='<div class="lin"><span>Atendimento:</span><span class="st">Equipe '+eq.id+(sit==="local"?' em vistoria no local':' a caminho, chega por volta de '+hora(eq.t0,eq.eta))+'</span></div>';
+      h+='<div class="lin"><button type="button" data-acao="vistoriada" class="prim">Marcar como vistoriada</button><button type="button" data-acao="cancelar">Cancelar envio</button></div>';
+    } else {
+      h+='<div class="lin"><span>Atendimento:</span><span class="st">vistoriada pela Equipe '+a.equipe+'</span><button type="button" data-acao="reabrir">Reabrir</button></div>';
+    }
+    h+='<div class="lin"><button type="button" data-acao="emitir" class="alerta"'+(e===0?' disabled title="A área está normal"':'')+'>Emitir alerta para esta área</button>'+
+       (a.emitido&&a.emitido.t<=st.t?'<span>'+a.emitido.nivel+' emitido em '+rotulo(a.emitido.t)+'</span>':'')+'</div>';
+    box.innerHTML=h;
+  }
+  function registra(t,cls,html){st.acoes.push({t:t,cls:cls,html:html})}
+  $("atend").addEventListener("click",function(ev){
+    var b=ev.target.closest("button");if(!b||b.disabled)return;var a=porId(st.sel),ac=b.dataset.acao;
+    if(ac==="enviar"){var eq=equipe(+b.dataset.eq);eq.area=a.id;eq.t0=st.t;eq.eta=etaMin(eq,a);a.atend="enviada";a.equipe=eq.id;
+      registra(st.t,"acao","Técnico enviou a <b>Equipe "+eq.id+"</b> para <b>"+a.nome+"</b> · chegada prevista "+hora(st.t,eq.eta))}
+    else if(ac==="vistoriada"){var e2=equipe(a.equipe);e2.pos={lat:a.lat,lon:a.lon};e2.area=null;a.atend="vistoriada";
+      registra(st.t,"acao","<b>Equipe "+e2.id+"</b> concluiu a vistoria em <b>"+a.nome+"</b> e está livre")}
+    else if(ac==="cancelar"){var e3=equipe(a.equipe);e3.area=null;a.atend="pendente";a.equipe=null;
+      registra(st.t,"acao","Técnico cancelou o envio para <b>"+a.nome+"</b>")}
+    else if(ac==="reabrir"){a.atend="pendente";registra(st.t,"acao","Técnico reabriu <b>"+a.nome+"</b>")}
+    else if(ac==="emitir"){abreModal([a.id]);return}
+    tudo();
+  });
+  function desenhaEquipes(){
+    var ol=$("equipes");ol.innerHTML="";
+    EQUIPES.forEach(function(e){var ar=e.area?porId(e.area):null,sit=situacao(e),li=document.createElement("li");
+      var txt=ar?'<span class="ocup">'+(sit==="local"?"Em vistoria":"A caminho")+'</span> · '+ar.nome+'<small>'+(sit==="local"?"chegou "+hora(e.t0,e.eta):"chega por volta de "+hora(e.t0,e.eta))+'</small>'
+                :'<span class="livre">Livre</span><small>'+(e.pos.lat===e.lat&&e.pos.lon===e.lon?e.base:"última vistoria: "+AREAS.filter(function(x){return x.lat===e.pos.lat&&x.lon===e.pos.lon}).map(function(x){return x.nome})[0])+'</small>';
+      li.innerHTML='<span class="tag">E'+e.id+'</span><span>'+txt+'</span>'+(ar?'<button class="botao" type="button">Ver área</button>':'<span></span>');
+      if(ar)li.querySelector("button").addEventListener("click",function(){seleciona(ar.id)});
+      ol.appendChild(li)});
+  }
+
+  // ================= emissão de alerta =================
+  var md={areas:[],nivel:"alerta",canais:{sms:true,cel:true,sirene:false,tg:false},editado:false,origem:null};
+  function textoSugerido(){
+    var sel=AREAS.filter(function(a){return md.areas.indexOf(a.id)>=0}),nv=NIVEIS.filter(function(n){return n.k===md.nivel})[0];
+    if(!sel.length)return "";
+    var abr={};sel.forEach(function(a){(abr[a.abrigo.id]=abr[a.abrigo.id]||{x:a.abrigo,n:[]}).n.push(a.nome)});
+    return "Defesa Civil do Recife: "+nv.nome.toUpperCase()+" de deslizamento em "+sel.map(function(a){return a.nome}).join(", ")+". "+nv.inst+
+      " Abrigos: "+Object.keys(abr).map(function(k2){return abr[k2].n.join(", ")+" → Abrigo "+k2+" ("+abr[k2].x.tipo.toLowerCase()+")"}).join("; ")+". Emergência: 199.";
+  }
+  function abreModal(pre){
+    parar();
+    md.areas=pre||AREAS.filter(function(a){return estado(a,st.t)===2&&!(a.emitido&&a.emitido.t<=st.t)}).map(function(a){return a.id});
+    md.nivel="alerta";md.editado=false;md.origem=document.activeElement;
+    $("passo1").hidden=false;$("passo2").hidden=true;$("modal").hidden=false;
+    desenhaModal(true);setTimeout(function(){var f=$("mAreas").querySelector("input");(f||$("mFechar")).focus()},0);
+  }
+  function fechaModal(){$("modal").hidden=true;if(md.origem&&md.origem.focus)md.origem.focus()}
+  function desenhaModal(refazTexto){
+    var cand=ordenadas().filter(function(a){return estado(a,st.t)>0||md.areas.indexOf(a.id)>=0});
+    var h='';
+    if(!cand.length)h='<p style="margin:0;color:var(--muted)">Nenhuma área em atenção ou alerta neste momento.</p>';
+    cand.forEach(function(a){var e=estado(a,st.t),em=a.emitido&&a.emitido.t<=st.t;
+      h+='<label><input type="checkbox" value="'+a.id+'"'+(md.areas.indexOf(a.id)>=0?" checked":"")+'><span>'+glifo(e).outerHTML+' '+a.nome+
+         '<small>'+EST[e].nome+' · '+mm(a,st.t)+' mm · '+a.pop.toLocaleString("pt-BR")+' moradores'+(em?' · já emitido: '+a.emitido.nivel.toLowerCase()+' em '+rotulo(a.emitido.t):'')+'</small></span></label>'});
+    $("mAreas").innerHTML=h;
+    $("mNivel").innerHTML=NIVEIS.map(function(n){return '<label><input type="radio" name="nivel" value="'+n.k+'"'+(md.nivel===n.k?" checked":"")+'><span>'+n.nome+'<small>'+n.inst+'</small></span></label>'}).join("");
+    $("mCanais").innerHTML=CANAIS.map(function(c){return '<label><input type="checkbox" value="'+c.k+'"'+(md.canais[c.k]?" checked":"")+'><span>'+c.nome+'<small>'+c.info+'</small></span></label>'}).join("");
+    if(refazTexto||!md.editado){$("mMsg").value=textoSugerido();md.editado=false}
+    atualizaModal();
+  }
+  function atualizaModal(){
+    var txt=$("mMsg").value,n=txt.length,partes=Math.max(1,Math.ceil(n/153));
+    $("mCont").textContent=n+" caracteres"+(md.canais.sms?(n>160?" · no SMS vira "+partes+" mensagens":" · cabe em 1 SMS"):"");
+    var sel=AREAS.filter(function(a){return md.areas.indexOf(a.id)>=0}),pop=sel.reduce(function(s2,a){return s2+a.pop},0);
+    var canais=CANAIS.filter(function(c){return md.canais[c.k]}).map(function(c){return c.nome});
+    $("mAlcance").innerHTML=sel.length?'Alcance estimado: <b>'+pop.toLocaleString("pt-BR")+'</b> moradores (simulado) em <b>'+sel.length+'</b> '+(sel.length>1?"áreas":"área")+(canais.length?' · por '+canais.join(", "):''):'Escolha ao menos uma área.';
+    var aviso=!sel.length?"Escolha ao menos uma área.":!canais.length?"Escolha ao menos um canal.":!txt.trim()?"Escreva a mensagem.":"";
+    $("mAviso").textContent=aviso;$("mRevisar").disabled=!!aviso;
+  }
+  $("mAreas").addEventListener("change",function(ev){var id=+ev.target.value;if(ev.target.checked){if(md.areas.indexOf(id)<0)md.areas.push(id)}else md.areas=md.areas.filter(function(x){return x!==id});if(!md.editado)$("mMsg").value=textoSugerido();atualizaModal()});
+  $("mNivel").addEventListener("change",function(ev){md.nivel=ev.target.value;if(!md.editado)$("mMsg").value=textoSugerido();atualizaModal()});
+  $("mCanais").addEventListener("change",function(ev){md.canais[ev.target.value]=ev.target.checked;atualizaModal()});
+  $("mMsg").addEventListener("input",function(){md.editado=true;atualizaModal()});
+  $("mRefaz").addEventListener("click",function(){md.editado=false;$("mMsg").value=textoSugerido();atualizaModal()});
+  $("mRevisar").addEventListener("click",function(){
+    var sel=AREAS.filter(function(a){return md.areas.indexOf(a.id)>=0}),nv=NIVEIS.filter(function(n){return n.k===md.nivel})[0];
+    var pop=sel.reduce(function(s2,a){return s2+a.pop},0),canais=CANAIS.filter(function(c){return md.canais[c.k]}).map(function(c){return c.nome});
+    var norm=sel.filter(function(a){return estado(a,st.t)===0}).length;
+    $("mResumo").innerHTML='<p style="margin:0">Você vai emitir <b>'+nv.nome.toUpperCase()+'</b> para <b>'+sel.length+' '+(sel.length>1?"áreas":"área")+'</b> ('+sel.map(function(a){return a.nome}).join(", ")+'), alcançando cerca de <b>'+pop.toLocaleString("pt-BR")+' moradores</b> por <b>'+canais.join(", ")+'</b>.</p>'+
+      '<blockquote>'+$("mMsg").value.replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})+'</blockquote>'+
+      (norm?'<p style="margin:0;color:#9b2222">'+norm+(norm>1?" áreas estão":" área está")+' em estado normal agora. Confirme se é isso mesmo.</p>':'')+
+      '<p style="margin:8px 0 0;color:var(--muted);font-size:13px">Depois de enviado, um alerta não pode ser desfeito; só corrigido com nova mensagem. Nesta demonstração nada é enviado.</p>';
+    $("passo1").hidden=true;$("passo2").hidden=false;$("mConfirmar").focus();
+  });
+  $("mVoltar").addEventListener("click",function(){$("passo2").hidden=true;$("passo1").hidden=false});
+  $("mConfirmar").addEventListener("click",function(){
+    var sel=AREAS.filter(function(a){return md.areas.indexOf(a.id)>=0}),nv=NIVEIS.filter(function(n){return n.k===md.nivel})[0];
+    var canais=CANAIS.filter(function(c){return md.canais[c.k]}).map(function(c){return c.nome});
+    sel.forEach(function(a){a.emitido={nivel:nv.nome,t:st.t}});
+    st.emissoes.push({t:st.t,areas:sel.map(function(a){return a.id}),nivel:nv.nome,canais:canais,msg:$("mMsg").value});
+    registra(st.t,"emi","Técnico emitiu <b>"+nv.nome.toLowerCase()+"</b> para "+sel.map(function(a){return "<b>"+a.nome+"</b>"}).join(", ")+" por "+canais.join(", ")+" (simulação)");
+    fechaModal();tudo();
+  });
+  $("mFechar").addEventListener("click",fechaModal);$("mCancelar").addEventListener("click",fechaModal);
+  $("modal").addEventListener("click",function(ev){if(ev.target===this)fechaModal()});
+  $("modal").addEventListener("keydown",function(ev){if(ev.key==="Escape"){ev.stopPropagation();fechaModal()}});
+  $("btnEmitir").addEventListener("click",function(){abreModal(null)});
+
+  // ================= registro =================
+  function desenhaRegistro(){
+    var ev=[];
+    AREAS.forEach(function(a){var ant=0;
+      for(var t=0;t<=st.t;t++){var e=estado(a,t);
+        if(e!==ant){ev.push({t:t,o:e>ant?2:1,html:'<span>'+glifo(e).outerHTML+'<span><b>'+a.nome+'</b> '+(e>ant?"entrou em "+EST[e].nome.toLowerCase():"voltou para "+EST[e].nome.toLowerCase())+' · '+mm(a,t)+' mm</span></span>'})}
+        ant=e}});
+    CHAMADOS.forEach(function(c){if(c.t<=st.t)ev.push({t:c.t,o:2.5,html:'<span class="cham-t">Chamado ao 199 · <b>'+porId(c.area).nome+'</b>: '+c.txt+'</span>'})});
+    st.acoes.forEach(function(x,i){if(x.t<=st.t)ev.push({t:x.t,o:3+i/1000,html:'<span class="'+(x.cls==="emi"?"emi-t":"acao")+'">'+x.html+'</span>'})});
+    ev.sort(function(a,b){return b.t-a.t||b.o-a.o});
+    var ol=$("registro");ol.innerHTML="";
+    if(!ev.length){ol.innerHTML='<li><time>'+rotulo(st.t)+'</time><span>Sem mudanças até agora: todas as áreas normais.</span></li>';return}
+    ev.forEach(function(x){var li=document.createElement("li");li.innerHTML='<time>'+rotulo(x.t)+'</time>'+x.html;ol.appendChild(li)});
+  }
+
+  // ================= validação =================
+  function desenhaValid(){
+    var prim={};AREAS.forEach(function(a){for(var t=0;t<NV;t++){if(estado(a,t)===2){prim[a.id]=t;break}}});
+    var acertos=0,antec=[],lista=$("ocolista");lista.innerHTML="";
+    OCORR.forEach(function(o){var a=AREAS.filter(function(x){return x.id===o.area})[0],p=prim[o.area],ok=p!==undefined&&p<=o.t;
+      if(ok){acertos++;antec.push((o.t-p)*PASSO_H)}
+      var li=document.createElement("li");li.innerHTML='<span>✕ '+a.nome+' · '+rotulo(o.t)+'</span><span class="res">'+(ok?"alerta "+((o.t-p)*PASSO_H)+" h antes":"sem alerta antes")+'</span>';lista.appendChild(li)});
+    var comOc={};OCORR.forEach(function(o){comOc[o.area]=1});
+    var falsos=Object.keys(prim).filter(function(id){return !comOc[id]}).length;
+    var media=antec.length?Math.round(antec.reduce(function(s,x){return s+x},0)/antec.length):0;
+    $("metr").innerHTML=
+      '<div><b>'+acertos+' de '+OCORR.length+'</b><small>ocorrências com alerta antes</small></div>'+
+      '<div><b>'+(OCORR.length-acertos)+'</b><small>ocorrências sem alerta</small></div>'+
+      '<div><b>'+falsos+'</b><small>áreas em alerta sem ocorrência</small></div>'+
+      '<div><b>'+(antec.length?media+" h":"–")+'</b><small>antecedência média</small></div>';
+  }
+
+  // ================= exportação =================
+  function desenhaExport(){
+    var linhas=[["posicao","area","estado","chuva_72h_mm","limite_mm","tendencia","moradores_sim","pluviometro","abrigo","equipe","atendimento","alerta_emitido"].join(";")],pos=0;
+    ordenadas().filter(filtrada).forEach(function(a){var e=estado(a,st.t);
+      linhas.push([a.atend==="vistoriada"?"-":++pos,a.nome,EST[e].nome,mm(a,st.t),lim(a),tendencia(a,st.t).n,a.pop,a.est.id,"Abrigo "+a.abrigo.id,a.equipe?"Equipe "+a.equipe:"",ATEND[a.atend],a.emitido&&a.emitido.t<=st.t?a.emitido.nivel+" "+rotulo(a.emitido.t):""].join(";"))});
+    var txt="# Alerta Morro (protótipo, dados simulados) - "+rotulo(st.t)+" 2022\n"+linhas.join("\n");
+    $("csv").value=txt;
+  }
+
+  // ================= controle =================
+  function tudo(){
+    $("agora").textContent=rotulo(st.t).replace(",", " 2022,");$("tempo").value=st.t;
+    $("ajusteOut").textContent=(st.ajuste>0?"+":"")+st.ajuste+"%";
+    desenhaMapa();desenhaFila();desenhaDetalhe();desenhaEquipes();desenhaRegistro();if(st.valid)desenhaValid();
+    var nAl=AREAS.filter(function(a){return estado(a,st.t)>0}).length;$("btnEmitir").disabled=!nAl;$("btnEmitir").title=nAl?"":"Nenhuma área em atenção ou alerta agora";
+  }
+  function seleciona(id){st.sel=id;tudo()}
+  function parar(){if(st.timer){clearInterval(st.timer);st.timer=null}$("play").textContent="▶ Reproduzir"}
+  function tocar(){
+    if(st.timer){parar();return}
+    if(st.t>=NV-1)st.t=0;else st.t++;
+    tudo();$("play").textContent="❚❚ Pausar";
+    st.timer=setInterval(function(){if(st.t>=NV-1){parar();return}st.t++;tudo()},700);
+  }
+  $("tempo").addEventListener("input",function(){parar();st.t=+this.value;tudo()});
+  $("ajuste").addEventListener("input",function(){st.ajuste=+this.value;tudo()});
+  $("play").addEventListener("click",tocar);
+  $("limArea").addEventListener("input",function(){var a=AREAS.filter(function(x){return x.id===st.sel})[0];a.lim=+this.value;tudo()});
+  var FILTROS=[["todas","Todas"],["pendentes","Precisam de atendimento"],["alerta","Só alerta"],["norte","Zona Norte"],["sul","Zona Sul"]];
+  FILTROS.forEach(function(fx){var b=document.createElement("button");b.type="button";b.className="chip";b.textContent=fx[1];b.dataset.f=fx[0];
+    b.setAttribute("aria-pressed",fx[0]===st.filtro?"true":"false");
+    b.addEventListener("click",function(){st.filtro=fx[0];Array.prototype.forEach.call(document.querySelectorAll(".chip"),function(c){c.setAttribute("aria-pressed",c.dataset.f===st.filtro?"true":"false")});if(fx[0]==="norte"||fx[0]==="sul"||fx[0]==="todas")enquadra();tudo()});
+    $("filtros").appendChild(b)});
+  $("btnValid").addEventListener("click",function(){st.valid=!st.valid;this.setAttribute("aria-pressed",st.valid);$("painelValid").hidden=!st.valid;tudo()});
+  $("btnExport").addEventListener("click",function(){st.export=!st.export;this.setAttribute("aria-pressed",st.export);$("painelExport").hidden=!st.export;if(st.export)desenhaExport()});
+  $("copiar").addEventListener("click",function(){var t=$("csv");t.select();var ok=false;
+    try{if(navigator.clipboard){navigator.clipboard.writeText(t.value);ok=true}else ok=document.execCommand("copy")}catch(e){}
+    $("copiado").textContent=ok?"Copiado.":"Selecione o texto e copie com Ctrl+C."});
+  document.addEventListener("keydown",function(ev){
+    if(!$("modal").hidden)return;
+    var tag=(ev.target.tagName||"").toLowerCase();if(tag==="input"||tag==="textarea"||tag==="button"||tag==="select")return;
+    if(ev.key===" "){ev.preventDefault();tocar()}
+    else if(ev.key==="ArrowRight"){parar();st.t=Math.min(NV-1,st.t+1);tudo()}
+    else if(ev.key==="ArrowLeft"){parar();st.t=Math.max(0,st.t-1);tudo()}
+  });
+  iniciaMapa();legenda();tudo();
+})();
+</script>
+</body>
+</html>
+
+</body></html>
